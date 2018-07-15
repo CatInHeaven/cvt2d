@@ -1,0 +1,19 @@
+
+Eigen - http://eigen.tuxfamily.org/
+	Mozilla Public License 2.0
+	https://www.mozilla.org/MPL/2.0/
+
+THREE.js - http://threejs.org/
+	MIT License - https://github.com/mrdoob/three.js/blob/master/LICENSE
+
+stats.js - https://github.com/mrdoob/stats.js/
+	MIT License - https://github.com/mrdoob/stats.js/blob/master/LICENSE
+	
+UglifyJS - https://github.com/mishoo/UglifyJS
+	BSD License
+
+dat.gui - https://code.google.com/p/dat-gui/
+	Apache License - http://www.apache.org/licenses/LICENSE-2.0
+
+OBJLoader.js and OrbitAndPanControls
+	Not found, but probably MIT, since they are made by mrdoob, the creator of THREE.js

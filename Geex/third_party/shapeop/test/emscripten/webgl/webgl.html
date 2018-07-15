@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>WebGL test</title>
+
+</head>
+<body>
+
+	<div style="margin-left: auto; margin-right: auto; width: 800px;">
+		<div><input type="file" id="file"/></div>
+		<div><canvas id="canvas" width="800" height="600">Your browser doesn't support canvas :'(</canvas></div>
+	</div>
+	
+	<script>
+		// Before loading Emscripten framework, register our canvas
+		var Module = {};
+        Module.canvas = document.getElementById('canvas');
+	</script>
+	
+	<script src="webgl.js"></script>
+	
+	<script>
+		// Import functions from C++ world
+		var init = Module.cwrap('init', 'bool', ['number', 'number']);
+		var loadBegin = Module.cwrap('loadBegin', 'void', ['number']);
+		var loadVertex = Module.cwrap('loadVertex', 'void', ['number', 'number', 'number', 'number', 'number', 'number']);
+		var loadEnd = Module.cwrap('loadEnd', 'void', []);
+		var mouseMoved = Module.cwrap('mouseMoved', 'void', ['number', 'number']);
+		
+		// Initialize and setup game loop
+		init(Module.canvas.width, Module.canvas.height);
+		
+		// Add callback used to handle file
+		document.getElementById('file').addEventListener('change', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			var file = document.getElementById('file').files[0];
+			if (file) {
+				reader = new FileReader();
+				reader.onload = function() {
+					load(reader.result);
+				};
+				reader.readAsText(file);
+			}
+		}, false);
+		
+		// When file is completely loaded, parse OBJ file
+		function load(obj) {
+			// Decode OBJ file
+			var lines = obj.split(/\r?\n/);
+			var vertices = [];
+			var normals = [];
+			var faces = [];
+			for (var i = 0; i < lines.length; ++i) {
+				var parts = lines[i].split(/\s+/);
+				switch (parts[0]) {
+				case 'v':
+					vertices[vertices.length] = parseFloat(parts[1]);
+					vertices[vertices.length] = parseFloat(parts[2]);
+					vertices[vertices.length] = parseFloat(parts[3]);
+					break;
+				case 'fn':
+					normals[normals.length] = parseFloat(parts[1]);
+					normals[normals.length] = parseFloat(parts[2]);
+					normals[normals.length] = parseFloat(parts[3]);
+					break;
+				case 'f':
+					var indices = [];
+					for (var j = 1; j < parts.length; ++j) {
+						var frags = parts[j].split(/\//);
+						indices[indices.length] = parseInt(frags[0]) - 1;
+						indices[indices.length] = parseInt(frags[2]) - 1;
+					}
+					for (var j = 4; j < indices.length; j += 2) {
+						faces[faces.length] = indices[0];
+						faces[faces.length] = indices[1];
+						faces[faces.length] = indices[j - 2];
+						faces[faces.length] = indices[j - 1];
+						faces[faces.length] = indices[j];
+						faces[faces.length] = indices[j + 1];
+					}
+					break;
+				}
+			}
+			// Load faces
+			loadBegin(faces.length / 2);
+			for (var i = 0; i < faces.length; i += 6) {
+				var x = [vertices[3 * faces[i]], vertices[3 * faces[i + 2]], vertices[3 * faces[i + 4]]];
+				var y = [vertices[3 * faces[i] + 1], vertices[3 * faces[i + 2] + 1], vertices[3 * faces[i + 4] + 1]];
+				var z = [vertices[3 * faces[i] + 2], vertices[3 * faces[i + 2] + 2], vertices[3 * faces[i + 4] + 2]];
+				var ux = x[1] - x[0], vx = x[2] - x[0];
+				var uy = y[1] - y[0], vy = y[2] - y[0];
+				var uz = z[1] - z[0], vz = z[2] - z[0];
+				var xt = uy * vz - uz * vy;
+				var yt = uz * vx - ux * vz;
+				var zt = ux * vy - uy * vx;
+				for (var j = 0; j < 3; ++j) {
+					var xn = normals[3 * faces[i + j * 2 + 1]];
+					var yn = normals[3 * faces[i + j * 2 + 1] + 1];
+					var zn = normals[3 * faces[i + j * 2 + 1] + 2];
+					if (isNaN(zn)) {
+						xn = xt;
+						yn = yt;
+						zn = zt;
+					}
+					loadVertex(x[j], y[j], z[j], xn, yn, zn);
+				}
+			}
+			loadEnd();
+		}
+		
+		// Load default OBJ cube
+		load(
+			"v  1 -1 -1\n" +
+			"v  1  1 -1\n" +
+			"v -1  1 -1\n" +
+			"v -1 -1 -1\n" +
+			"v  1 -1  1\n" +
+			"v  1  1  1\n" +
+			"v -1  1  1\n" +
+			"v -1 -1  1\n" +
+			"f 6 7 5\n" +
+			"f 8 5 7\n" +
+			"f 2 6 1\n" +
+			"f 5 1 6\n" +
+			"f 3 7 2\n" +
+			"f 6 2 7\n" +
+			"f 4 8 3\n" +
+			"f 7 3 8\n" +
+			"f 1 5 4\n" +
+			"f 8 4 5\n" +
+			"f 3 2 4\n" +
+			"f 1 4 2"
+		);
+		
+		// Setup mouse interaction
+		var mouseDown = false;
+		var mouseLastX, mouseLastY;
+		Module.canvas.onmousedown = function(e) {
+			mouseDown = true;
+			mouseLastX = e.clientX;
+			mouseLastY = e.clientY;
+		};
+		document.onmouseup = function(e) {
+			mouseDown = false;
+		};
+		document.onmousemove = function(e) {
+			if (!mouseDown)
+				return;
+			var dx = (e.clientX - mouseLastX) / canvas.width;
+			var dy = (e.clientY - mouseLastY) / canvas.height;
+			mouseMoved(3 * dx, 3 * dy);
+			mouseLastX = e.clientX;
+			mouseLastY = e.clientY;
+		};
+	</script>
+	
+</body>
+</html>

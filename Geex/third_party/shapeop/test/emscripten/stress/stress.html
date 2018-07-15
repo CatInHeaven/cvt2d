@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Stress test</title>
+
+</head>
+<body>
+
+	<div style="margin-left: auto; margin-right: auto; width: 800px;">
+		<div id="info"></div>
+		<div><canvas id="canvas" width="800" height="600">Your browser doesn't support canvas :'(</canvas></div>
+	</div>
+	
+	<script>
+		// Before loading Emscripten framework, register our canvas
+		var Module = {};
+        Module.canvas = document.getElementById('canvas');
+	</script>
+	
+	<script src="stress.js"></script>
+	
+	<script>
+		// Initialize and setup game loop
+		var info = document.getElementById('info');
+		Module.ccall('init', 'bool', ['number'], [1000]);
+	</script>
+	
+</body>
+</html>

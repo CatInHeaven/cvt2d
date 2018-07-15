@@ -1,0 +1,58 @@
+/**  \mainpage notitle
+
+\section introduction_sec Introduction
+
+This library introduces a unified optimization framework for static and dynamic geometry processing based on \cite Bouaziz2012 and \cite Bouaziz2014. This library comes from an effort to make research reproducible and to transfer knowledge and technology. 
+
+
+This project is jointly developed by the following contributors:
+
+- ShapeOp Solver: \a Sofien \a Bouaziz 
+
+- Rhino/Kangaroo: \a Daniel \a Piker, \a Bailin \a Deng, \a Anders \a Holden \a Deleuran
+
+- Javascript/WebGL: \a Johan \a Berdat
+
+- Project Management: \a Mario \a Deuss, \a Mark \a Pauly 
+
+
+The library is subject to the terms of the Mozilla Public License v. 2.0. You can obtain a copy of the MPL2 at http://mozilla.org/MPL/2.0/.
+
+\section compilation_sec Compilation and Installation
+ 
+### Compilation under Unix and Mac.
+
+Install CMake (http://www.cmake.org) and Eigen (http://eigen.tuxfamily.org/) using your favorite package manager. Then in the main repository type:
+
+ - mkdir build
+ - cd build
+ - cmake ..
+ - make
+
+After building the library, you can generate the documentation by typing:
+
+ - cd doc
+ - doxygen DoxyShapeOp
+
+To generate the documentation first install Doxygen (http://www.doxygen.org/). You will also need to have Bibtex and Perl available to get the bibliography compiled.
+
+### Compilation under Windows.
+
+Download and install CMake (http://www.cmake.org) and Eigen (http://eigen.tuxfamily.org/).
+ 
+ - run the cmake executable
+ - define where the Eigen repository is located
+ - create a visual studio solution
+ - open the visual studio solution and compile.
+
+### More details on the different compilation options.
+
+For more details on the different compilation options see \ref doc_libshapeop.
+
+\section further_sec Documentation about the Libary and the Different Applications
+  
+ \li \ref doc_libshapeop
+ \li \ref doc_rhino
+ \li \ref doc_webgl
+
+**/

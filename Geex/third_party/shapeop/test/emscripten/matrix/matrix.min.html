@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Matrix test</title>
+
+</head>
+<body>
+
+	<input type="file" id="file"/>
+	<div id="norm"></div>
+	<div id="time"></div>
+	<a download="result.txt" id="result" style="display: none">Download</a>
+	
+	<script src="matrix.min.js"></script>
+	
+	<script>
+		var file, reader;
+		var inputSize = 0;
+		var inputI = [], inputJ = [], inputV = [];
+		var outputI = [], outputJ = [], outputV = [];
+		var norm = 0;
+		var text = '';
+		var blob;
+		var url = null;
+		var t1, t2, t3, t4;
+		
+		var process = Module.cwrap('process', 'number', []);
+		
+		function millis() {
+			if (performance.now)
+				return performance.now();
+			return Date.now();
+		}
+		
+		function handleFileSelect(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			file = document.getElementById('file').files[0];
+			if (file) {
+				t1 = millis();
+				reader = new FileReader();
+				reader.onload = fileLoaded;
+				reader.readAsText(file);
+			}
+		}
+		
+		function fileLoaded() {
+			inputI = [];
+			outputI = [];
+			var tokens = reader.result.trim().split(/\s+/);
+			inputSize = parseInt(tokens[0]);
+			for (var k = 0; k < (tokens.length - 1) / 3; ++k) {
+				inputI[k] = parseInt(tokens[3 * k + 1]);
+				inputJ[k] = parseInt(tokens[3 * k + 2]);
+				inputV[k] = parseFloat(tokens[3 * k + 3]);
+			}
+			t2 = millis();
+			process();
+			t3 = millis();
+			document.getElementById('norm').innerHTML = "Frobenius norm of LL*-M = " + norm;
+			text = '';
+			for (var k = 0; k < outputI.length; ++k)
+				text += outputI[k] + " " + outputJ[k] + " " + outputV[k] + "\r\n";
+			blob = new Blob([text], {type: 'text/plain'});
+			if (url != null)
+				window.URL.revokeObjectURL(url);
+			url = window.URL.createObjectURL(blob);
+			var link = document.getElementById('result');
+			link.href = url;
+			link.style.display = 'block';
+			t4 = millis();
+			document.getElementById('time').innerHTML = Math.round(t4 - t1) + "ms (" + Math.round(t3 - t2) + "ms in C++ code)";
+		}
+		
+		document.getElementById('file').addEventListener('change', handleFileSelect, false);
+	</script>
+	
+</body>
+</html>
