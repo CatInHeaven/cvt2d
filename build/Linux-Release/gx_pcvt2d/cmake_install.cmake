@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/hgfs/cvt2d_new/gx_pcvt2d
+# Install script for directory: /mnt/hgfs/cvt2d/gx_pcvt2d
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

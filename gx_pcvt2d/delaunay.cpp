@@ -55,13 +55,13 @@ namespace Geex {
     void SegmentDelaunay::insert(int id, const vec2& p1, const vec2& p2, double step_length) {
         vec2 V = p2 - p1 ;
         double l = V.length() ;
+		vec2 offset = vec2(1,1);
         int count = int(l / step_length) ;
         count = gx_max(count, 2) ;
         V = normalize(V) ;
         double delta = l / double(count) ;
         for(int i=0; i<=count; i++) {
-			vec2 p = p1 + (delta * double(i)) * V;
-			std::cerr << "i = " << i << " p =(" << p.x <<","<< p.y << ")" << " delta = "<< delta << std::endl ;
+			vec2 p = p1 + (delta * double(i)) * V + offset;
             insert(id, p) ;
         }
     } 
@@ -91,7 +91,10 @@ namespace Geex {
     Delaunay::Delaunay() {
         non_convex_mode_ = false ;
         cached_bbox_ = false ;
+		//Covering_sheets cs = baseclass::number_of_sheets();
+		//std::cerr << "Current covering: " << cs[0] << ' ' << cs[1] << std::endl;  //result is (1,1)
         load_boundary(FileSystem::get_project_root() + "/gx_pcvt2d/square.line") ;
+		set_domain(Iso_rectangle(x_min_, y_min_, x_max_, y_max_));
 		opened_ = false ;
         insert_boundary_ = false ;
 		perturb_ = 0 ;
@@ -143,31 +146,31 @@ namespace Geex {
 		in.close() ;
     }
 
-    void Delaunay::load_boundary(const std::string& filename) {
-        cached_bbox_ = false ;
-        boundary_.clear() ;
-        boundary_convex_.clear() ;
-        boundary_.load(filename) ;
-		printf("end loading...\n");
+	void Delaunay::load_boundary(const std::string& filename) {
+		cached_bbox_ = false ;
+		boundary_.clear() ;
+		boundary_convex_.clear() ;
+		boundary_.load(filename) ;
 //        boundary_.normalize() ;
-        if(!non_convex_mode_) {
-            for(unsigned int i=0; i<boundary_.size(); i++) {
-                boundary_convex_.push_back(boundary_[i].line()) ;
-            }
-        }
+		if(!non_convex_mode_) {
+			for(unsigned int i=0; i<boundary_.size(); i++) {
+				boundary_convex_.push_back(boundary_[i].line()) ;
+			}
+		}
 
-        double x_min, y_min, z_min ;
-        double x_max, y_max, z_max ;
-        get_bbox(x_min, y_min, z_min, x_max, y_max, z_max) ;
-        double dx = x_max - x_min - 1e-3;
-        double dy = y_max - y_min - 1e-3;
-        double diag = sqrt(dx*dx + dy*dy) ;
+		double x_min, y_min, z_min ;
+		double x_max, y_max, z_max ;
+		get_bbox(x_min, y_min, z_min, x_max, y_max, z_max) ;
+		double dx = x_max - x_min;
+		double dy = y_max - y_min;
+		double diag = sqrt(dx*dx + dy*dy) ;
 
-        segments_.clear() ;
-        for(unsigned int i=0; i<boundary_.size(); i++) {
-            segments_.insert(int(i), boundary_[i].vertex[0], boundary_[i].vertex[1], 0.01 * diag) ;
-        }
-    }
+		segments_.clear() ;
+		for(unsigned int i=0; i<boundary_.size(); i++) {
+			segments_.set_domain(Iso_rectangle(1, 1, 2.1, 2.1));
+			segments_.insert(int(i), boundary_[i].vertex[0], boundary_[i].vertex[1], 0.01 * diag) ;
+		}
+	}
 
 
     void Delaunay::get_bbox(
@@ -193,7 +196,7 @@ namespace Geex {
             cached_bbox_ = true ;
         }
         x_min = x_min_ ; y_min = y_min_ ;
-        x_max = x_max_+1e-3 ; y_max = y_max_+1e-3 ;
+        x_max = x_max_ ; y_max = y_max_;
     }
 
     inline vec2 random_v() {
@@ -1619,12 +1622,12 @@ namespace Geex {
 		** for the case that Voronoi cell intersects the domain but
 		** the Voronoi vertices are outside
 		*/
-		for(unsigned int i=0; i<boundary_.size(); ++i) {
-			PolygonEdge& e = boundary_[i] ;
-			// this returns the infinite vertex in release mode
-			Vertex_handle vh = nearest(e.vertex[1]) ;
-			all_vertices_[vh->index]->dual_intersects_boundary = true ;
-		}
+		//for(unsigned int i=0; i<boundary_.size(); ++i) {
+		//	PolygonEdge& e = boundary_[i] ;
+		//	// this returns the infinite vertex in release mode
+		//	Vertex_handle vh = nearest(e.vertex[1]) ;
+		//	all_vertices_[vh->index]->dual_intersects_boundary = true ;
+		//}
 
 		opened_ = false ;
         if(redraw) {
@@ -1633,8 +1636,11 @@ namespace Geex {
     }
 	
     void Delaunay::insert_random_vertex() {
-        double x_min, y_min, z_min, x_max, y_max, z_max ;
-        get_bbox(x_min, y_min, z_min, x_max, y_max, z_max) ;
+        double x_min, y_min, x_max, y_max ;
+		x_min = domain().xmin();
+		x_max = domain().xmax();
+		y_min = domain().ymin();
+		y_max = domain().ymax();
         Geex::vec2 p = random_v() ;
         p.x = x_min + (x_max - x_min) * p.x ;
         p.y = y_min + (y_max - y_min) * p.y ;
@@ -1656,7 +1662,17 @@ namespace Geex {
         begin_insert() ;
         for(unsigned int i=0; i<nb; i++) {
             insert_random_vertex() ;
-            std::cerr << (i+1) << '/' << nb << std::endl ;
+			/*Geex::vec2 p;
+			for (double x = 0. ; x < .9 ; x += 0.4)
+  			{
+				p.x = x;  
+    			for (double y = 0. ; y < .9 ; y += 0.4)
+    			{
+					p.y = y;
+      				insert(p);
+    			}
+  			}*/
+            //std::cerr << (i+1) << '/' << nb << std::endl ;
         }
         if(insert_boundary_ ) {
             for(unsigned int i=0; i<boundary_.size(); i++) {
@@ -1665,6 +1681,7 @@ namespace Geex {
             }
         }
         end_insert(false) ;
+		convert_to_9_sheeted_covering();
     }
 
 	void Delaunay::insert_grid(int nb) {

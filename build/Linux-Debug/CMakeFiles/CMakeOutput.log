@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/3.12.0-rc2/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/3.12.0-rc2/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/bin/c++ 
@@ -23,39 +23,39 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/3.12.0-rc2/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/3.12.0-rc2/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a650c/fast"
-make: Warning: File 'Makefile' has modification time 0.55 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_a650c.dir/build.make CMakeFiles/cmTC_a650c.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_a650c.dir/flags.make' has modification time 0.54 s in the future
-Building C object CMakeFiles/cmTC_a650c.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_a650c.dir/testCCompiler.c.o   -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_a650c
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a650c.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_a650c.dir/testCCompiler.c.o  -o cmTC_a650c 
+Run Build Command:"/usr/bin/make" "cmTC_87150/fast"
+make: Warning: File 'Makefile' has modification time 0.011 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_87150.dir/build.make CMakeFiles/cmTC_87150.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_87150.dir/flags.make' has modification time 0.0037 s in the future
+Building C object CMakeFiles/cmTC_87150.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_87150.dir/testCCompiler.c.o   -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_87150
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87150.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_87150.dir/testCCompiler.c.o  -o cmTC_87150 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_c7603/fast"
-make: Warning: File 'Makefile' has modification time 1.3 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_c7603.dir/build.make CMakeFiles/cmTC_c7603.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_c7603.dir/flags.make' has modification time 1.3 s in the future
-Building C object CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.12/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_c7603
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7603.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o  -o cmTC_c7603 
+Run Build Command:"/usr/bin/make" "cmTC_2a1df/fast"
+make: Warning: File 'Makefile' has modification time 0.76 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_2a1df.dir/build.make CMakeFiles/cmTC_2a1df.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_2a1df.dir/flags.make' has modification time 0.75 s in the future
+Building C object CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.12/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_2a1df
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a1df.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o  -o cmTC_2a1df 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper
@@ -65,27 +65,27 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) 
 COMPILER_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/../../../../lib/:/lib/i386-linux-gnu/:/lib/../lib/:/usr/lib/i386-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/i686-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_c7603' '-mtune=generic' '-march=i686'
- /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccV1a30E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_c7603 /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a1df' '-mtune=generic' '-march=i686'
+ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccpROA4O.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_2a1df /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_c7603/fast"]
-  ignore line: [make: Warning: File 'Makefile' has modification time 1.3 s in the future]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_c7603.dir/build.make CMakeFiles/cmTC_c7603.dir/build]
-  ignore line: [make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp']
-  ignore line: [make[1]: Warning: File 'CMakeFiles/cmTC_c7603.dir/flags.make' has modification time 1.3 s in the future]
-  ignore line: [Building C object CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.12/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_c7603]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7603.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o  -o cmTC_c7603 ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_2a1df/fast"]
+  ignore line: [make: Warning: File 'Makefile' has modification time 0.76 s in the future]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_2a1df.dir/build.make CMakeFiles/cmTC_2a1df.dir/build]
+  ignore line: [make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Warning: File 'CMakeFiles/cmTC_2a1df.dir/flags.make' has modification time 0.75 s in the future]
+  ignore line: [Building C object CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.12/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_2a1df]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a1df.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o  -o cmTC_2a1df ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper]
@@ -95,13 +95,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/../../../../lib/:/lib/i386-linux-gnu/:/lib/../lib/:/usr/lib/i386-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/i686-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_c7603' '-mtune=generic' '-march=i686']
-  link line: [ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccV1a30E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_c7603 /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2a1df' '-mtune=generic' '-march=i686']
+  link line: [ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccpROA4O.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_2a1df /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/i686-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccV1a30E.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccpROA4O.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -119,7 +119,7 @@ Parsed C implicit link information from above output:
     arg [/lib/ld-linux.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_c7603] ==> ignore
+    arg [cmTC_2a1df] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/crtbegin.o] ==> ignore
@@ -131,7 +131,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/i386-linux-gnu] ==> dir [/usr/lib/i386-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/i686-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/i686-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_c7603.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_2a1df.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -159,20 +159,20 @@ Parsed C implicit link information from above output:
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_7a30a/fast"
-make: Warning: File 'Makefile' has modification time 1 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_7a30a.dir/build.make CMakeFiles/cmTC_7a30a.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_7a30a.dir/flags.make' has modification time 1 s in the future
-Building C object CMakeFiles/cmTC_7a30a.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_7a30a.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_7a30a
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7a30a.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_7a30a.dir/feature_tests.c.o  -o cmTC_7a30a 
+Run Build Command:"/usr/bin/make" "cmTC_511fb/fast"
+make: Warning: File 'Makefile' has modification time 0.44 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_511fb.dir/build.make CMakeFiles/cmTC_511fb.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_511fb.dir/flags.make' has modification time 0.43 s in the future
+Building C object CMakeFiles/cmTC_511fb.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_511fb.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_511fb
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_511fb.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_511fb.dir/feature_tests.c.o  -o cmTC_511fb 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -183,20 +183,20 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f3a2c/fast"
-make: Warning: File 'Makefile' has modification time 0.79 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_f3a2c.dir/build.make CMakeFiles/cmTC_f3a2c.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_f3a2c.dir/flags.make' has modification time 0.79 s in the future
-Building C object CMakeFiles/cmTC_f3a2c.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_f3a2c.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_f3a2c
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3a2c.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_f3a2c.dir/feature_tests.c.o  -o cmTC_f3a2c 
+Run Build Command:"/usr/bin/make" "cmTC_3911e/fast"
+make: Warning: File 'Makefile' has modification time 0.2 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_3911e.dir/build.make CMakeFiles/cmTC_3911e.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_3911e.dir/flags.make' has modification time 0.19 s in the future
+Building C object CMakeFiles/cmTC_3911e.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_3911e.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_3911e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3911e.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3911e.dir/feature_tests.c.o  -o cmTC_3911e 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -207,20 +207,20 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_cd7bd/fast"
-make: Warning: File 'Makefile' has modification time 0.55 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_cd7bd.dir/build.make CMakeFiles/cmTC_cd7bd.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_cd7bd.dir/flags.make' has modification time 0.54 s in the future
-Building C object CMakeFiles/cmTC_cd7bd.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_cd7bd.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_cd7bd
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cd7bd.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_cd7bd.dir/feature_tests.c.o  -o cmTC_cd7bd 
+Run Build Command:"/usr/bin/make" "cmTC_65713/fast"
+make: Warning: File 'Makefile' has modification time 0.95 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_65713.dir/build.make CMakeFiles/cmTC_65713.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_65713.dir/flags.make' has modification time 0.94 s in the future
+Building C object CMakeFiles/cmTC_65713.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_65713.dir/feature_tests.c.o   -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_65713
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_65713.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_65713.dir/feature_tests.c.o  -o cmTC_65713 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -229,36 +229,36 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_412e7/fast"
-make: Warning: File 'Makefile' has modification time 1.3 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_412e7.dir/build.make CMakeFiles/cmTC_412e7.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_412e7.dir/flags.make' has modification time 1.3 s in the future
-Building CXX object CMakeFiles/cmTC_412e7.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_412e7.dir/testCXXCompiler.cxx.o -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_412e7
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_412e7.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_412e7.dir/testCXXCompiler.cxx.o  -o cmTC_412e7 
+Run Build Command:"/usr/bin/make" "cmTC_4cc68/fast"
+make: Warning: File 'Makefile' has modification time 0.65 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_4cc68.dir/build.make CMakeFiles/cmTC_4cc68.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_4cc68.dir/flags.make' has modification time 0.64 s in the future
+Building CXX object CMakeFiles/cmTC_4cc68.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_4cc68.dir/testCXXCompiler.cxx.o -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_4cc68
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4cc68.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_4cc68.dir/testCXXCompiler.cxx.o  -o cmTC_4cc68 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_2d88f/fast"
-make: Warning: File 'Makefile' has modification time 1.1 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_2d88f.dir/build.make CMakeFiles/cmTC_2d88f.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_2d88f.dir/flags.make' has modification time 1.1 s in the future
-Building CXX object CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_2d88f
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d88f.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2d88f 
+Run Build Command:"/usr/bin/make" "cmTC_ffdbb/fast"
+make: Warning: File 'Makefile' has modification time 0.4 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_ffdbb.dir/build.make CMakeFiles/cmTC_ffdbb.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_ffdbb.dir/flags.make' has modification time 0.39 s in the future
+Building CXX object CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_ffdbb
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ffdbb.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ffdbb 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper
@@ -268,27 +268,27 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) 
 COMPILER_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/../../../../lib/:/lib/i386-linux-gnu/:/lib/../lib/:/usr/lib/i386-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/i686-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2d88f' '-shared-libgcc' '-mtune=generic' '-march=i686'
- /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccC29oJ3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_2d88f /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_ffdbb' '-shared-libgcc' '-mtune=generic' '-march=i686'
+ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgTLqxi.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_ffdbb /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_2d88f/fast"]
-  ignore line: [make: Warning: File 'Makefile' has modification time 1.1 s in the future]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_2d88f.dir/build.make CMakeFiles/cmTC_2d88f.dir/build]
-  ignore line: [make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp']
-  ignore line: [make[1]: Warning: File 'CMakeFiles/cmTC_2d88f.dir/flags.make' has modification time 1.1 s in the future]
-  ignore line: [Building CXX object CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_2d88f]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d88f.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2d88f ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_ffdbb/fast"]
+  ignore line: [make: Warning: File 'Makefile' has modification time 0.4 s in the future]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_ffdbb.dir/build.make CMakeFiles/cmTC_ffdbb.dir/build]
+  ignore line: [make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Warning: File 'CMakeFiles/cmTC_ffdbb.dir/flags.make' has modification time 0.39 s in the future]
+  ignore line: [Building CXX object CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_ffdbb]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ffdbb.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ffdbb ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper]
@@ -298,13 +298,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/i686-linux-gnu/5/:/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/:/usr/lib/gcc/i686-linux-gnu/5/../../../../lib/:/lib/i386-linux-gnu/:/lib/../lib/:/usr/lib/i386-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/i686-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2d88f' '-shared-libgcc' '-mtune=generic' '-march=i686']
-  link line: [ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccC29oJ3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_2d88f /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_ffdbb' '-shared-libgcc' '-mtune=generic' '-march=i686']
+  link line: [ /usr/lib/gcc/i686-linux-gnu/5/collect2 -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgTLqxi.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_i386 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux.so.2 -z relro -o cmTC_ffdbb /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/i686-linux-gnu/5 -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/5/../../.. CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/i686-linux-gnu/5/crtend.o /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/i686-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccC29oJ3.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccgTLqxi.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -322,7 +322,7 @@ Parsed CXX implicit link information from above output:
     arg [/lib/ld-linux.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_2d88f] ==> ignore
+    arg [cmTC_ffdbb] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/i686-linux-gnu/5/crtbegin.o] ==> ignore
@@ -334,7 +334,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/i386-linux-gnu] ==> dir [/usr/lib/i386-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/i686-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/i686-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_2d88f.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_ffdbb.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -360,20 +360,20 @@ Parsed CXX implicit link information from above output:
 
 
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_d0663/fast"
-make: Warning: File 'Makefile' has modification time 0.64 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_d0663.dir/build.make CMakeFiles/cmTC_d0663.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_d0663.dir/flags.make' has modification time 0.63 s in the future
-Building CXX object CMakeFiles/cmTC_d0663.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_d0663.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_d0663
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d0663.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_d0663.dir/feature_tests.cxx.o  -o cmTC_d0663 
+Run Build Command:"/usr/bin/make" "cmTC_38123/fast"
+make: Warning: File 'Makefile' has modification time 0.75 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_38123.dir/build.make CMakeFiles/cmTC_38123.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_38123.dir/flags.make' has modification time 0.74 s in the future
+Building CXX object CMakeFiles/cmTC_38123.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_38123.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_38123
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_38123.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_38123.dir/feature_tests.cxx.o  -o cmTC_38123 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -437,20 +437,20 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5dcd1/fast"
-make: Warning: File 'Makefile' has modification time 1.1 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_5dcd1.dir/build.make CMakeFiles/cmTC_5dcd1.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_5dcd1.dir/flags.make' has modification time 1.1 s in the future
-Building CXX object CMakeFiles/cmTC_5dcd1.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_5dcd1.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_5dcd1
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5dcd1.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5dcd1.dir/feature_tests.cxx.o  -o cmTC_5dcd1 
+Run Build Command:"/usr/bin/make" "cmTC_75ab2/fast"
+make: Warning: File 'Makefile' has modification time 0.12 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_75ab2.dir/build.make CMakeFiles/cmTC_75ab2.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_75ab2.dir/flags.make' has modification time 0.11 s in the future
+Building CXX object CMakeFiles/cmTC_75ab2.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_75ab2.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_75ab2
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_75ab2.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_75ab2.dir/feature_tests.cxx.o  -o cmTC_75ab2 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -514,20 +514,20 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_851d1/fast"
-make: Warning: File 'Makefile' has modification time 0.62 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_851d1.dir/build.make CMakeFiles/cmTC_851d1.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_851d1.dir/flags.make' has modification time 0.61 s in the future
-Building CXX object CMakeFiles/cmTC_851d1.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_851d1.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_851d1
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_851d1.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_851d1.dir/feature_tests.cxx.o  -o cmTC_851d1 
+Run Build Command:"/usr/bin/make" "cmTC_e073c/fast"
+make: Warning: File 'Makefile' has modification time 0.6 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_e073c.dir/build.make CMakeFiles/cmTC_e073c.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_e073c.dir/flags.make' has modification time 0.6 s in the future
+Building CXX object CMakeFiles/cmTC_e073c.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_e073c.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_e073c
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e073c.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_e073c.dir/feature_tests.cxx.o  -o cmTC_e073c 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -591,20 +591,20 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_d3856/fast"
-make: Warning: File 'Makefile' has modification time 1.1 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_d3856.dir/build.make CMakeFiles/cmTC_d3856.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_d3856.dir/flags.make' has modification time 1.1 s in the future
-Building CXX object CMakeFiles/cmTC_d3856.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_d3856.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_d3856
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d3856.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_d3856.dir/feature_tests.cxx.o  -o cmTC_d3856 
+Run Build Command:"/usr/bin/make" "cmTC_3ebbb/fast"
+make: Warning: File 'Makefile' has modification time 0.067 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_3ebbb.dir/build.make CMakeFiles/cmTC_3ebbb.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_3ebbb.dir/flags.make' has modification time 0.06 s in the future
+Building CXX object CMakeFiles/cmTC_3ebbb.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_3ebbb.dir/feature_tests.cxx.o -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_3ebbb
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ebbb.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_3ebbb.dir/feature_tests.cxx.o  -o cmTC_3ebbb 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
@@ -666,34 +666,38 @@ make: warning:  Clock skew detected.  Your build may be incomplete.
     Feature record: CXX_FEATURE:0cxx_variadic_macros
     Feature record: CXX_FEATURE:0cxx_variadic_templates
 Determining if the include file pthread.h exists passed with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b5430/fast"
-make: Warning: File 'Makefile' has modification time 1.2 s in the future
-/usr/bin/make -f CMakeFiles/cmTC_b5430.dir/build.make CMakeFiles/cmTC_b5430.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-make[1]: Warning: File 'CMakeFiles/cmTC_b5430.dir/flags.make' has modification time 1.2 s in the future
-Building C object CMakeFiles/cmTC_b5430.dir/CheckIncludeFile.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_b5430.dir/CheckIncludeFile.c.o   -c /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_b5430
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b5430.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_b5430.dir/CheckIncludeFile.c.o  -o cmTC_b5430 
+Run Build Command:"/usr/bin/make" "cmTC_0a883/fast"
+make: Warning: File 'Makefile' has modification time 0.11 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_0a883.dir/build.make CMakeFiles/cmTC_0a883.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_0a883.dir/flags.make' has modification time 0.1 s in the future
+Building C object CMakeFiles/cmTC_0a883.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_0a883.dir/CheckIncludeFile.c.o   -c /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_0a883
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a883.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_0a883.dir/CheckIncludeFile.c.o  -o cmTC_0a883 
 make[1]: warning:  Clock skew detected.  Your build may be incomplete.
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
 make: warning:  Clock skew detected.  Your build may be incomplete.
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
-Change Dir: /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp
+Change Dir: /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_36f79/fast"
-/usr/bin/make -f CMakeFiles/cmTC_36f79.dir/build.make CMakeFiles/cmTC_36f79.dir/build
-make[1]: Entering directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_36f79.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_36f79.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.12/Modules/CheckFunctionExists.c
-Linking C executable cmTC_36f79
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36f79.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_36f79.dir/CheckFunctionExists.c.o  -o cmTC_36f79 -lpthread 
-make[1]: Leaving directory '/mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_55e08/fast"
+make: Warning: File 'Makefile' has modification time 0.38 s in the future
+/usr/bin/make -f CMakeFiles/cmTC_55e08.dir/build.make CMakeFiles/cmTC_55e08.dir/build
+make[1]: Entering directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make[1]: Warning: File 'CMakeFiles/cmTC_55e08.dir/flags.make' has modification time 0.37 s in the future
+Building C object CMakeFiles/cmTC_55e08.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_55e08.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.12/Modules/CheckFunctionExists.c
+Linking C executable cmTC_55e08
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_55e08.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_55e08.dir/CheckFunctionExists.c.o  -o cmTC_55e08 -lpthread 
+make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+make[1]: Leaving directory '/mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/CMakeTmp'
+make: warning:  Clock skew detected.  Your build may be incomplete.
 
 

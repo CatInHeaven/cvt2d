@@ -43,10 +43,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/hgfs/cvt2d_new
+CMAKE_SOURCE_DIR = /mnt/hgfs/cvt2d
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/hgfs/cvt2d_new/build/Linux-Release
+CMAKE_BINARY_DIR = /mnt/hgfs/cvt2d/build/Linux-Release
 
 # Utility rule file for NightlyStart.
 
@@ -71,6 +71,6 @@ CMakeFiles/NightlyStart.dir/clean:
 .PHONY : CMakeFiles/NightlyStart.dir/clean
 
 CMakeFiles/NightlyStart.dir/depend:
-	cd /mnt/hgfs/cvt2d_new/build/Linux-Release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/cvt2d_new /mnt/hgfs/cvt2d_new /mnt/hgfs/cvt2d_new/build/Linux-Release /mnt/hgfs/cvt2d_new/build/Linux-Release /mnt/hgfs/cvt2d_new/build/Linux-Release/CMakeFiles/NightlyStart.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/hgfs/cvt2d/build/Linux-Release && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/cvt2d /mnt/hgfs/cvt2d /mnt/hgfs/cvt2d/build/Linux-Release /mnt/hgfs/cvt2d/build/Linux-Release /mnt/hgfs/cvt2d/build/Linux-Release/CMakeFiles/NightlyStart.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/NightlyStart.dir/depend
 

@@ -43,10 +43,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/hgfs/cvt2d_new
+CMAKE_SOURCE_DIR = /mnt/hgfs/cvt2d
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/hgfs/cvt2d_new/build/Linux-Debug
+CMAKE_BINARY_DIR = /mnt/hgfs/cvt2d/build/Linux-Debug
 
 # Utility rule file for ExperimentalTest.
 
@@ -71,6 +71,6 @@ CMakeFiles/ExperimentalTest.dir/clean:
 .PHONY : CMakeFiles/ExperimentalTest.dir/clean
 
 CMakeFiles/ExperimentalTest.dir/depend:
-	cd /mnt/hgfs/cvt2d_new/build/Linux-Debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/cvt2d_new /mnt/hgfs/cvt2d_new /mnt/hgfs/cvt2d_new/build/Linux-Debug /mnt/hgfs/cvt2d_new/build/Linux-Debug /mnt/hgfs/cvt2d_new/build/Linux-Debug/CMakeFiles/ExperimentalTest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/hgfs/cvt2d/build/Linux-Debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/cvt2d /mnt/hgfs/cvt2d /mnt/hgfs/cvt2d/build/Linux-Debug /mnt/hgfs/cvt2d/build/Linux-Debug /mnt/hgfs/cvt2d/build/Linux-Debug/CMakeFiles/ExperimentalTest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ExperimentalTest.dir/depend
 

@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/hgfs/cvt2d_new/Geex
+# Install script for directory: /mnt/hgfs/cvt2d/Geex
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

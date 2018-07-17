@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /mnt/hgfs/cvt2d_new
-BuildDirectory: /mnt/hgfs/cvt2d_new/build/Linux-Debug
+SourceDirectory: /mnt/hgfs/cvt2d
+BuildDirectory: /mnt/hgfs/cvt2d/build/Linux-Debug
 
 # Where to place the cost data store
 CostDataFile: 
@@ -36,7 +36,7 @@ ScpCommand: /usr/bin/scp
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/local/bin/cmake" "/mnt/hgfs/cvt2d_new"
+ConfigureCommand: "/usr/local/bin/cmake" "/mnt/hgfs/cvt2d"
 MakeCommand: /usr/local/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -67,9 +67,9 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: 
+UpdateCommand: /usr/bin/git
 UpdateOptions: 
-UpdateType: 
+UpdateType: git
 
 # Compiler info
 Compiler: /usr/bin/c++

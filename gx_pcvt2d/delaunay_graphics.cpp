@@ -211,12 +211,35 @@ namespace Geex {
     void DelaunayGraphics::draw_domain() {
         glLineWidth(3) ;
         glColor3f(0.1, 0.1, 0.1) ;
-        glBegin(GL_LINES) ;
+        
+		double x_min, y_min;
+        double x_max, y_max;
+		double dx, dy;
+		x_min = delaunay_->x_min_;
+		x_max = delaunay_->x_max_;
+		y_min = delaunay_->y_min_;
+		y_max = delaunay_->y_max_;
+		dx = x_max - x_min;
+		dy = y_max - y_min;
+		
+		for(unsigned int i=0; i<4; i++) {
+			glBegin(GL_LINES) ;
+			glVertex(vec2(x_min,y_min+i*dy)) ;
+			glVertex(vec2(x_min+3*dx,y_min+i*dy)) ;
+			glEnd();
+		}
+		for(unsigned int i=0; i<4; i++) {
+			glBegin(GL_LINES) ;
+			glVertex(vec2(x_min+i*dx,y_min)) ;
+			glVertex(vec2(x_min+i*dx,y_min+3*dy)) ;
+			glEnd();
+		}
+		/*glBegin(GL_LINES) ;
         for(unsigned int i=0; i<delaunay_->boundary_.size(); i++) {
             glVertex(delaunay_->boundary_[i].vertex[0]) ;
             glVertex(delaunay_->boundary_[i].vertex[1]) ;
         }
-        glEnd() ;
+        glEnd() ;*/
     }
 
     void DelaunayGraphics::draw_vertices() {
@@ -246,7 +269,10 @@ namespace Geex {
 					continue ;
 				int deg = delaunay_->degree(v) ;
 				gl_vertex_color(deg) ;
-				glVertex2f(v->point().x(), v->point().y()) ;
+				Point p = delaunay_->point(delaunay_->periodic_point(v));
+				//std::cerr << pp.x() << std::endl ;
+				glVertex2f(p.x(), p.y()) ;
+				std::cerr << "p = (" <<p.x() << "," << p.y()<< ")" << std::endl ;
 			}
 		}
 //        end_spheres() ;
@@ -696,7 +722,7 @@ namespace Geex {
 	}
 	
 	void DelaunayGraphics::draw_field() {
-        double x_min, y_min, z_min ;
+        /*double x_min, y_min, z_min ;
         double x_max, y_max, z_max ;
         delaunay_->get_bbox(x_min, y_min, z_min, x_max, y_max, z_max) ;
         double dx = x_max - x_min ;
@@ -720,7 +746,7 @@ namespace Geex {
             glVertex(to_geex(it->point())) ;
        }
     
-        glEnd() ;
+        glEnd() ;*/
     }
 
     void DelaunayGraphics::draw_dual_facet(Delaunay::Vertex_handle v) {

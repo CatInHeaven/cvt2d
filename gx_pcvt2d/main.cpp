@@ -93,7 +93,7 @@ namespace Geex {
             }
 			cvt()->insert_boundary() = insert_boundary_ ;
             cvt()->insert_random_vertices(nb_points_) ;
-			insert_copies() ;
+			//insert_copies() ;
         }
 
 		void insert_grid() {

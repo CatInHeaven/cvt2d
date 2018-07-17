@@ -292,9 +292,9 @@ string
 
 ../../Geex/third_party/misc/linkage.h
 
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/delaunay.cpp
+/mnt/hgfs/cvt2d/gx_pcvt2d/delaunay.cpp
 delaunay.h
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/delaunay.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/delaunay.h
 Geex/basics/stopwatch.h
 -
 Geex/basics/file_system.h
@@ -308,17 +308,17 @@ fstream
 queue
 -
 
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/delaunay.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/delaunay.h
 delaunay_cgal.h
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/delaunay_cgal.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/delaunay_cgal.h
 polygons.h
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/polygons.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/polygons.h
 GL/gl.h
 -
 
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/delaunay_cgal.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/delaunay_cgal.h
 geometry.h
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/geometry.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/geometry.h
 CGAL/Exact_predicates_inexact_constructions_kernel.h
 -
 CGAL/Point_2.h
@@ -328,7 +328,7 @@ CGAL/Periodic_2_Delaunay_triangulation_2.h
 CGAL/Periodic_2_Delaunay_triangulation_traits_2.h
 -
 
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/geometry.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/geometry.h
 Geex/symbolics/expression.h
 -
 Geex/mathematics/glsl_linear.h
@@ -336,11 +336,11 @@ Geex/mathematics/glsl_linear.h
 vector
 -
 
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/polygons.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/polygons.h
 Geex/mathematics/glsl_linear.h
 -
 geometry.h
-/mnt/hgfs/cvt2d_new/gx_pcvt2d/geometry.h
+/mnt/hgfs/cvt2d/gx_pcvt2d/geometry.h
 set
 -
 algorithm

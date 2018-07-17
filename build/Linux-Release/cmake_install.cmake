@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/hgfs/cvt2d_new
+# Install script for directory: /mnt/hgfs/cvt2d
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/mnt/hgfs/cvt2d_new/build/Linux-Release/Geex/cmake_install.cmake")
-  include("/mnt/hgfs/cvt2d_new/build/Linux-Release/gx_pcvt2d/cmake_install.cmake")
+  include("/mnt/hgfs/cvt2d/build/Linux-Release/Geex/cmake_install.cmake")
+  include("/mnt/hgfs/cvt2d/build/Linux-Release/gx_pcvt2d/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/hgfs/cvt2d_new/build/Linux-Release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/hgfs/cvt2d/build/Linux-Release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

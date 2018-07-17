@@ -3,15 +3,15 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_FLAGS =  -fopenmp -DUNIX -DGX_GINAC -DGX_GINAC -g -fPIC   -DBINARY_DIR=\"/mnt/hgfs/cvt2d_new/build/Linux-Debug\" -DPROJECT_ROOT=\"/mnt/hgfs/cvt2d_new\"
+C_FLAGS =  -fopenmp -DUNIX -DGX_GINAC -DGX_GINAC -g -fPIC   -DBINARY_DIR=\"/mnt/hgfs/cvt2d/build/Linux-Debug\" -DPROJECT_ROOT=\"/mnt/hgfs/cvt2d\"
 
 C_DEFINES = -DCGAL_USE_CORE=1 -DCGAL_USE_GMP -DCGAL_USE_MPFR -Dgeex_EXPORTS
 
-C_INCLUDES = -I/mnt/hgfs/cvt2d_new/build/Linux-Debug -I/mnt/hgfs/cvt2d_new -I/mnt/hgfs/cvt2d_new/Geex/third_party -I/mnt/hgfs/cvt2d_new/Geex/third_party/AntTweakBar/include -I/mnt/hgfs/cvt2d_new/Geex/third_party/tsANN/include -I/mnt/hgfs/cvt2d_new/Geex/third_party/f2c/include -isystem /usr/local/include 
+C_INCLUDES = -I/mnt/hgfs/cvt2d/build/Linux-Debug -I/mnt/hgfs/cvt2d -I/mnt/hgfs/cvt2d/Geex/third_party -I/mnt/hgfs/cvt2d/Geex/third_party/AntTweakBar/include -I/mnt/hgfs/cvt2d/Geex/third_party/tsANN/include -I/mnt/hgfs/cvt2d/Geex/third_party/f2c/include -isystem /usr/local/include 
 
-CXX_FLAGS =  -fopenmp -DUNIX -DGX_GINAC -g -fPIC   -DBINARY_DIR=\"/mnt/hgfs/cvt2d_new/build/Linux-Debug\" -DPROJECT_ROOT=\"/mnt/hgfs/cvt2d_new\" -frounding-math
+CXX_FLAGS =  -fopenmp -DUNIX -DGX_GINAC -g -fPIC   -DBINARY_DIR=\"/mnt/hgfs/cvt2d/build/Linux-Debug\" -DPROJECT_ROOT=\"/mnt/hgfs/cvt2d\" -frounding-math
 
 CXX_DEFINES = -DCGAL_USE_CORE=1 -DCGAL_USE_GMP -DCGAL_USE_MPFR -Dgeex_EXPORTS
 
-CXX_INCLUDES = -I/mnt/hgfs/cvt2d_new/build/Linux-Debug -I/mnt/hgfs/cvt2d_new -I/mnt/hgfs/cvt2d_new/Geex/third_party -I/mnt/hgfs/cvt2d_new/Geex/third_party/AntTweakBar/include -I/mnt/hgfs/cvt2d_new/Geex/third_party/tsANN/include -I/mnt/hgfs/cvt2d_new/Geex/third_party/f2c/include -isystem /usr/local/include 
+CXX_INCLUDES = -I/mnt/hgfs/cvt2d/build/Linux-Debug -I/mnt/hgfs/cvt2d -I/mnt/hgfs/cvt2d/Geex/third_party -I/mnt/hgfs/cvt2d/Geex/third_party/AntTweakBar/include -I/mnt/hgfs/cvt2d/Geex/third_party/tsANN/include -I/mnt/hgfs/cvt2d/Geex/third_party/f2c/include -isystem /usr/local/include 
 

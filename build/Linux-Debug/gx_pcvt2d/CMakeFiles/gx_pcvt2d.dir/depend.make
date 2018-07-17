@@ -17387,6 +17387,10 @@ gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../Geex/mathematics/vecg.h
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../Geex/third_party/misc/linkage.h
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/PDSample/PDSampling.h
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/PDSample/RNG.h
+gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/ccvt/ccvt_metric.h
+gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/ccvt/ccvt_optimizer.h
+gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/ccvt/ccvt_point.h
+gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/ccvt/ccvt_site.h
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/pd.h
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/sampling.cpp
 gx_pcvt2d/CMakeFiles/gx_pcvt2d.dir/sampling.o: ../../gx_pcvt2d/sampling.h
