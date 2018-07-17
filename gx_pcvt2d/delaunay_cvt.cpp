@@ -199,10 +199,8 @@ namespace Geex {
 	}
 
 	void DelaunayCVT::compute_hessian() {
-		delaunay_->clear_copies() ;
 		int nv = delaunay_->nb_vertices() ;
 		TNT::Matrix<double> H(nv*2, nv*2) ;
-		delaunay_->insert_copies(true) ; // insert full copies for computing Hessian
 
 		for(int i=0; i<nv; ++i) {
 			Delaunay::Vertex_handle v = delaunay_->vertices()[i] ;
@@ -271,12 +269,7 @@ namespace Geex {
             std::vector<vec2> new_points ;
 			std::vector<bool> flags ;
 			
-			if(period())
-				delaunay_->clear_copies(false) ;
 			delaunay_->compute_rvd() ;
-			if(period()) {
-				delaunay_->insert_copies(pvd_mode_==FULL_COPY, redraw) ;
-			}
 
             FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
 /*				if(v->locked) {
@@ -313,13 +306,8 @@ namespace Geex {
             }
             delaunay_->end_insert(false) ;
 
-			if(period()) {
-				delaunay_->insert_copies(pvd_mode_==FULL_COPY, false) ;
-			}
+
             double F = lloyd_energy() ;
-			//if(period()) {
-			//	delaunay_->clear_copies(false) ;
-			//}
             
 			if(redraw) {
                 //std::cerr << "Lloyd energy = " << F << std::endl ;
@@ -335,9 +323,7 @@ namespace Geex {
         for(unsigned int k=0; k<nb_iter; k++) {
             std::vector<vec2> new_points ;
 			
-			delaunay_->clear_copies(false) ;
 			delaunay_->compute_rvd() ;
-			delaunay_->insert_copies(pvd_mode_==FULL_COPY, redraw) ;
 
             FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
 				if(!delaunay_->is_primary(v)) continue ;
@@ -355,14 +341,6 @@ namespace Geex {
 			//	v->locked = flags[j] ;
             }
             delaunay_->end_insert(false) ;
-
-			if(period()) {
-				delaunay_->insert_copies(pvd_mode_==FULL_COPY, false) ;
-			}
-//            double F = lloyd_energy() ;
-			//if(period()) {
-			//	delaunay_->clear_copies(false) ;
-			//}
             
 			if(redraw) {
                 //std::cerr << "Lloyd energy = " << F << std::endl ;
@@ -479,10 +457,6 @@ namespace Geex {
 		}
 		delaunay_->end_insert(false) ;
 
-		// periodic CVT
-		if(period()) {
-			delaunay_->insert_copies(pvd_mode_==FULL_COPY, true) ;
-		}
 	}
 
     void DelaunayCVT::set_vertices(const double* x) {
@@ -537,10 +511,6 @@ namespace Geex {
         }
         delaunay_->end_insert(false) ;
 
-		// periodic CVT
-		if(period()) {
-			delaunay_->insert_copies(pvd_mode_==FULL_COPY, true) ;
-		}
     }
 
 

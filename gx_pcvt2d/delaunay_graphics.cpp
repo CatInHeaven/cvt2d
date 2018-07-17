@@ -272,7 +272,7 @@ namespace Geex {
 				Point p = delaunay_->point(delaunay_->periodic_point(v));
 				//std::cerr << pp.x() << std::endl ;
 				glVertex2f(p.x(), p.y()) ;
-				std::cerr << "p = (" <<p.x() << "," << p.y()<< ")" << std::endl ;
+				//std::cerr << "p = (" <<p.x() << "," << p.y()<< ")" << std::endl ;
 			}
 		}
 //        end_spheres() ;

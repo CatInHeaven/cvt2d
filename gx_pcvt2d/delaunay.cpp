@@ -93,8 +93,8 @@ namespace Geex {
         cached_bbox_ = false ;
 		//Covering_sheets cs = baseclass::number_of_sheets();
 		//std::cerr << "Current covering: " << cs[0] << ' ' << cs[1] << std::endl;  //result is (1,1)
-        load_boundary(FileSystem::get_project_root() + "/gx_pcvt2d/square.line") ;
-		set_domain(Iso_rectangle(x_min_, y_min_, x_max_, y_max_));
+        //load_boundary(FileSystem::get_project_root() + "/gx_pcvt2d/square.line") ;
+		set_domain(Iso_rectangle(0, 0, 1, 1));
 		opened_ = false ;
         insert_boundary_ = false ;
 		perturb_ = 0 ;
@@ -178,25 +178,10 @@ namespace Geex {
         real& x_max, real& y_max, real& z_max
     ) {
         z_min = 0.0 ; z_max = 1.0 ;
-        if(!cached_bbox_) {
-            x_min_ = y_min_ =  1e30 ;
-            x_max_ = y_max_ = -1e30 ;
-            if(boundary_.size() == 0) {
-                x_min_ = 0.0 ; y_min_ = 0.0 ;
-                x_max_ = 1.0 ; y_max_ = 1.0 ;
-            }
-            for(unsigned int i=0; i<boundary_.size(); i++) {
-                for(unsigned int j=0; j<2; j++) {
-                    x_min_ = gx_min(x_min_, boundary_[i].vertex[j].x) ;
-                    y_min_ = gx_min(y_min_, boundary_[i].vertex[j].y) ;
-                    x_max_ = gx_max(x_max_, boundary_[i].vertex[j].x) ;
-                    y_max_ = gx_max(y_max_, boundary_[i].vertex[j].y) ;
-                }
-            }
-            cached_bbox_ = true ;
-        }
-        x_min = x_min_ ; y_min = y_min_ ;
-        x_max = x_max_ ; y_max = y_max_;
+		y_min = 0.0 ; y_max = 1.0 ;
+		x_min = 0.0 ; x_max = 1.0 ;
+		x_min_ = x_min; x_max_ = x_max;
+		y_min_ = y_min; y_max_ = y_max;
     }
 
     inline vec2 random_v() {
@@ -404,12 +389,6 @@ namespace Geex {
 		end_insert(false) ;
 		std::cout << "Delaunay of the initial sampling " << all_vertices_.size() << " points, " << t1-t0 <<" seconds" << std::endl ;
 
-		t1 = timer.now() ;
-		insert_copies_poisson(sample_radius(), false) ;
-		// insert copies
-		double t2 = timer.now() ;
-		std::cerr << "Insertion of copies " << t2-t1 << " seconds." << std::endl ;
-
 		// check the area condition
 		double total_area=0 ;
 		FOR_EACH_FINITE_FACE_DT(Delaunay, this, f) {
@@ -424,124 +403,6 @@ namespace Geex {
 
 		glut_viewer_redraw() ;
 	}
-	void Delaunay::insert_copies_poisson(double radius, bool redraw) {
-		unsigned int nv = all_vertices_.size() ;
-		vec2 newp ;
-		Vertex_handle vh ;
-
-		mirror_vertices_.clear() ;
-		opened_ = true ;
-		for(unsigned int i=0; i<nv; ++i) {
-			int config ;
-			vec2 p = to_geex(all_vertices_[i]->point()) ;
-			insert_copy_poisson(p, i, radius) ;
-		}
-
-		int nb_gaps = 0 ;
-		FOR_EACH_FACE_DT(Delaunay, this, it) {
-			if(is_infinite(it)) {
-//				it->infinite = true ;
-				it->dual = vec2(0.0, 0.0) ;
-				it->dual_outside = true ;
-				it->vertex(0)->dual_infinite = true ;
-				it->vertex(1)->dual_infinite = true ;
-				it->vertex(2)->dual_infinite = true ;
-				it->has_gap = false ;
-			} else {
-//				it->infinite = false ;
-				it->dual = to_geex(baseclass::dual(it)) ;
-				it->dual_outside = !in_boundary(it->dual) ;
-				it->has_gap = is_dual_gap(it, radius) ;
-				if(!it->dual_outside && it->has_gap) {
-					nb_gaps ++ ;
-				}
-			}
-		}
-
-		std::cerr << "number of gaps " << nb_gaps << std::endl ;
-
-		opened_ = false ;
-	}
-
-//	bool Delaunay::sample_grid_gaps(int res, double radius) {
-//		WeightedTree *WT = nil ;
-////		int nb_init = points.size() ;
-//		int nb_gap_verts = 0 ;
-//		std::vector<vec2> new_points ;
-//
-//		for(unsigned int i=0; i<all_vertices_.size(); ++i) {
-//			Vertex_handle it = all_vertices_[i] ;
-//			compute_gap_area(it, radius) ;
-//			if(it->ex_area > 0) {
-//				if(WT==nil) {
-//					WT= new WeightedTree(it->index, it->ex_area) ;	
-//				}
-//				else {
-//					WT->add_to_tree(it->index, it->ex_area) ;
-//				}
-//
-//				nb_gap_verts ++ ;
-//			}
-//		}
-//
-//		std::cerr << "number of vertices incident to gaps " << nb_gap_verts << std::endl ;
-//		if(nb_gap_verts==0) return true ;
-//
-//		// sample gap
-//		double gridlen = 1.0/res ;
-//		double r2 = SQR(radius) ;
-//		bool   done = false ;
-//		int    nmiss = 0 ;
-//		int    npoint = 0 ;
-//		int    nmaxthrow = 5*nb_gap_verts ;  //SQR(res) ;
-//		int    nminthrow = nb_gap_verts/16 ; //SQR(res)/16 ;
-//		int    nthrow = 0 ;
-//		int    nmaxfail = 100 ;
-//		
-//		SystemStopwatch timer ;
-//		double t0 = timer.now() ;
-//
-//		while(nmiss<nmaxfail && nthrow<nmaxthrow || nthrow<nminthrow) {
-//			int  vidx = WT->select_vertex_from_tree() ;
-//			vec2 p = new_vertex_in_voronoi(all_vertices_[vidx], radius) ;
-//			int  domain = domain_idx(p) ;
-//			p = p - domain_offset_[domain] ;
-//			int  u = p.x/gridlen ;
-//			int  v = p.y/gridlen ;
-//			bool hit = true ;
-//
-//			u = min(u, res-1) ;
-//			v = min(v, res-1) ;
-//
-//			if(is_hit_period(p, u, v, res, r2)) {
-//				grid_[u][v].valid = false ;
-//				grid_[u][v].point = p ;
-//				nmiss = 0 ;
-//				npoint ++ ;
-//				//points.push_back(p) ;
-//				new_points.push_back(p) ;
-//				//// to do: accelerate insertion by indicate the facet
-//				//insert_point_poisson(p, radius) ;
-//			} else {
-//				nmiss ++ ;
-//			}
-//
-//			nthrow ++ ;
-//		} ;
-//
-//		double t1 = timer.now() ;
-//		std::cout << "Sampling gaps " << npoint << " points, " << t1-t0 <<" seconds" << std::endl ;
-//
-//		// to do: accelerate insertion by indicate the facet
-//		// this can be done in constant time since we know the location of new sample	
-//		for(unsigned int i=0; i<new_points.size(); ++i) {
-//			insert_point_poisson(new_points[i], radius) ;
-//		}
-//
-//		delete WT ;
-//
-//		return new_points.size() == 0 ;
-//	}
 
 	void Delaunay::insert_point_poisson(vec2& p, double radius) {
 		opened_ = true ;
@@ -550,7 +411,6 @@ namespace Geex {
 		vh->domain = 0 ;
 		all_vertices_.push_back(vh) ;
 		update_neighbor_cells(vh, radius) ;
-		insert_copy_poisson(p, vh->index, radius) ;
 		opened_ = false ;	
 	}
 
@@ -574,176 +434,10 @@ namespace Geex {
 		} while(fcir!=incident_faces(vh)) ;
 	}
 
-	void Delaunay::insert_copy_poisson(vec2& p, int i, double radius) {
-		double margin = radius*2.0 ;
-		vec2   newp ;
-		Vertex_handle vh ;
 
-		if(p.x < margin) {
-			newp = p + vec2(1.0, 0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 4 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.x > 1.0-margin) {
-			newp = p - vec2(1.0, 0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 8 ;
-			mirror_vertices_[i].push_back(vh) ;	
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.y < margin) {
-			newp = p + vec2(0, 1) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 6 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.y > 1.0-margin) {
-			newp = p - vec2(0, 1) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 2 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		//
-		if(p.x < margin && p.y < margin) {
-			newp = p + vec2(1.0, 1.0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 5 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.x>1.0-margin && p.y<margin) {
-			newp = p + vec2(-1.0, 1.0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 7 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.x>1.0-margin && p.y>1.0-margin) {
-			newp = p + vec2(-1.0, -1.0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 1 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-		if(p.x<margin && p.y>1.0-margin) {
-			newp = p + vec2(1.0, -1.0) ;
-			vh = insert(newp) ;
-			vh->index = i ;
-			vh->domain = 3 ;
-			mirror_vertices_[i].push_back(vh) ;
-			update_neighbor_cells(vh, radius) ;
-		}
-	}
 
 	void Delaunay::generate_poisson_disk() {
 		std::vector<vec2>   points ;
-
-		//switch(sampling_mode_) {
-		//case PD_CCVT:
-		//	sample_ccvt(points, 1024) ;
-		//	set_vertices(points) ;
-		//	break ;
-		//case PD_VORONOI:
-		//	fast_poisson_disk(sample_radius()) ;
-		//	break; 
-		//case PD_BOUNDARY:
-		//	break; 
-		//case PD_DARTTHROW: {
-		//	sample_poisson_grid(sample_radius(), 400) ;
-		//	break ;
-		//}			
-		//case PD_PENROSE:
-		//	break; 
-		//default: 
-		//	std::cerr << "sampling mode is not implemented...\n" ;
-		//	break ;
-		//}
-	}
-
-	void Delaunay::fast_poisson_disk(double exclude_radius) {
-//		vertices_.clear() ;
-//		all_vertices_.clear() ;
-//		clear() ;
-//
-//		srand(time(NULL)) ;
-//
-//		std::cerr << "sampling radius: " << exclude_radius << std::endl ;
-//
-////		vec2 p0(0.68059327982421336, 0.30582598345896789) ;
-////		std::cerr << "first point " << p0 << std::endl ;
-//		vec2 p0 = random_v() ;
-//		Vertex_handle v0 = insert_vertex_periodic(p0, exclude_radius) ;
-//		gx_assert(v0->ex_area > 0) ;
-//		WeightedTree *WT = new WeightedTree(v0->index, v0->ex_area);
-//		SystemStopwatch timer ;
-//		double t0 = timer.now() ;
-//
-//		while(!WT->no_area_left()) {
-//			int  v = WT->select_vertex_from_tree() ;
-//			if(all_vertices_[v]->ex_area == 0.0) {
-//				std::cerr << "Voronoi cell with 0 area is selected..." << std::endl ;
-//			}
-//			gx_assert(all_vertices_[v]->ex_area > 0.0) ;
-//
-//			vec2 newv = new_vertex_in_voronoi(all_vertices_[v], exclude_radius) ;
-//			int domain = domain_idx(newv) ;
-//			newv = newv - domain_offset_[domain] ;
-//			Vertex_handle vh = insert_vertex_periodic(newv, exclude_radius) ;
-//			WT->add_to_tree(vh->index, vh->ex_area) ;
-//
-//			Vertex_circulator cir = incident_vertices(vh) ;
-//			do {
-//			  printf("checking neighbor %f %f   %f  ", 
-//					 to_geex(cir->point()) , 
-//					 distance(newv, to_geex(cir->point())));
-//			  if(distance(newv, to_geex(cir->point())) < exclude_radius) {
-//				  std::cerr << "vertex " << v << " is selected, new vertex " << newv <<" is generated" << std::endl ;
-//				  std::cerr << "checking neighbor " << cir->index << " " << to_geex(cir->point()) << std::endl ;
-//			  }
-//			  gx_assert(distance(newv, to_geex(cir->point())) >= exclude_radius);
-//			  if (cir->domain==0 && WT->in_tree(cir->index))
-//				  WT->update_tree(cir->index, cir->ex_area);
-//			  printf("neighbor %d has been updated\n", cir->index);
-//
-//			  ++cir ;
-//			} while(cir!=incident_vertices(vh)) ;
-//
-//			// the neighbor affected by periodic copies also need to be updated
-//			for(int k=1; k<9; ++k) {
-//				Vertex_handle vk = vertices_[k][vh->index] ;
-//				cir = incident_vertices(vk) ;
-//				do {
-//					if(cir->domain==0 && WT->in_tree(cir->index)) {
-//						WT->update_tree(cir->index, cir->ex_area);
-//					}
-//					++cir ;
-//				} while(cir!=incident_vertices(vk)) ;
-//			}
-//
-//			if ((all_vertices_.size() % 10000) == 0) {
-//				double t1 = timer.now() ;
-//				std::cerr << "10000 points added in " << t1-t0 << " seconds (ratio "
-//					<< (t1-t0) / log((double)all_vertices_.size()) <<") total " << all_vertices_.size() <<", " 
-//					<< WT->area_left() <<" arealeft" << std::endl ;
-//				t0 = t1 ;
-//			}
-//		}
-//
-//		std::cerr << "Done. " << all_vertices_.size() << " points generated..."
-//			<< this->number_of_vertices() << " in DT..." << std::endl ;
-//
-//		delete WT ;
 	}
 
 	bool Delaunay::is_dual_gap(Delaunay::Face_handle f, double exclude_radius) {
@@ -1080,94 +774,6 @@ namespace Geex {
 //		if(poly.size()<3) poly.push_back(f->dual) ;
 	}
 
-	Delaunay::Vertex_handle Delaunay::insert_vertex_periodic(vec2& p, double exclude_radius) {
-//		vec2 offset[] = {vec2(0, 0), vec2(-1, -1), vec2(0, -1), vec2(1, -1), vec2(1, 0), vec2(1, 1), vec2(0, 1), vec2(-1, 1), vec2(-1, 0)} ;
-		int  domain = domain_idx(p) ;
-		vec2 newp = p - domain_offset_[domain] ;
-		Vertex_handle v0 = baseclass::insert(to_cgal(newp)) ;
-		v0->index = all_vertices_.size() ;
-		v0->domain = 0 ; //-1 ;
-		
-		for(int i=1; i<9; ++i) {
-			Vertex_handle vh = baseclass::insert(to_cgal(newp+domain_offset_[i])) ;
-			vh->index = v0->index ; //i*nb_sample_ + all_vertices_.size() ;
-			vh->domain = i ; //v0->index ;
-			vertices_[i].push_back(vh) ;
-		}
-
-		// update nieghbor cells of the primary point
-		Face_circulator fcir = incident_faces(v0) ;
-		do {
-			if(is_infinite(fcir)) {
- //               fcir->infinite = true ;
-                fcir->dual = vec2(0.0, 0.0) ;
-                fcir->dual_outside = true ;
-				fcir->has_gap = false ;
-            }
-			else {
- //               fcir->infinite = false ;
-                fcir->dual = to_geex(baseclass::dual(fcir)) ;
-                fcir->dual_outside = !in_boundary(fcir->dual) ;			
-				fcir->has_gap = is_dual_gap(fcir, exclude_radius) ;
-			}
-			++fcir ;
-		} while(fcir!=incident_faces(v0)) ;
-
-		// update neighbor cells the mirror points
-		for(int i=1; i<9; ++i) {
-			Vertex_handle vi = vertices_[i][v0->index] ;
-			fcir = incident_faces(vi) ;
-			do {
-				if(is_infinite(fcir)) {
-//					fcir->infinite = true ;
-					fcir->dual = vec2(0.0, 0.0) ;
-					fcir->dual_outside = true ;
-					fcir->has_gap = false ;
-				}
-				else {
-//					fcir->infinite = false ;
-					fcir->dual = to_geex(baseclass::dual(fcir)) ;
-					fcir->dual_outside = !in_boundary(fcir->dual) ;			
-					fcir->has_gap = is_dual_gap(fcir, exclude_radius) ;
-				}
-				++ fcir ;
-			} while(fcir!=incident_faces(vi)) ;
-		}
-
-		// update excluded area 
-//		compute_gap_area(v0, exclude_radius) ;
-		compute_voronoi_area(v0, exclude_radius) ;
-		all_vertices_.push_back(v0) ;
-
-		// update one ring of v0
-		Vertex_circulator cir = adjacent_vertices(v0) ;
-		do {
-			// update area for primay points
-			if(is_primary(cir)) { 
-				compute_voronoi_area(all_vertices_[cir->index], exclude_radius) ;
-				//compute_gap_area(all_vertices_[cir->index], exclude_radius) ;
-			}
-			++ cir ;
-		} while(cir!=adjacent_vertices(v0)) ;
-
-		// update one ring of copies
-		for(int i=1; i<9; ++i) {
-			Vertex_handle vi = vertices_[i][v0->index] ;
-			cir = adjacent_vertices(vi) ;
-			do {
-				// update area for primay points
-				if(is_primary(cir)) { 
-					compute_voronoi_area(all_vertices_[cir->index], exclude_radius) ;
-					//compute_gap_area(all_vertices_[cir->index], exclude_radius) ;
-				}
-				++ cir ;
-			} while(cir!=adjacent_vertices(vi)) ;
-		}
-
-//		glut_viewer_redraw() ;
-		return v0 ;
-	}
-
 	void Delaunay::compute_voronoi_area(Delaunay::Vertex_handle& v, double exclude_radius) {
 //		Delaunay::Face_circulator it = incident_faces(v) ;
 //		Delaunay::Face_circulator jt = it ; jt++ ;
@@ -1383,8 +989,6 @@ namespace Geex {
 		std::cout << "Delaunay triangulation of " << this->number_of_vertices() << " vertices, " 
 			<< t1-t0 << " second. " << std::endl ;
 
-//		insert_copies(true, true) ;
-		insert_copies_poisson(this->sample_radius(), true) ;
 		double t2 = timer.now() ;
 		std::cout << "Insertion  mirror vertices, " << t2-t1 << " second. " << std::endl ;
 	}
@@ -1885,40 +1489,6 @@ namespace Geex {
 		return result ;
 	}
 
-	// -------------------------------------- Periodic Delaunay: necessary copies -------------------------
-	void Delaunay::insert_copies(bool full_copy, bool redraw) {
-		
-		/*clear_copies() ;
-
-		
-		if(full_copy) {
-			insert_copies_full() ;
-		} else {
-//			compute_pvd() ;
-			insert_copies_ring() ;
-		}*/
-	}
-
-	void Delaunay::insert_copies_full(bool redraw) {
-		int nv = nb_vertices() ;  // master vertices
-//		int nb_copies = 8 ;
-//		double shift[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1} } ;
-
-		begin_insert_copies() ;
-		mirrors_.clear() ;
-		for(int i=0; i<nv; ++i) {
-			Vertex_handle mc = all_vertices_[i] ;
-			for(int j=1; j<9; ++j) {
-				vec2 newp = to_geex(mc->point())+domain_offset_[j] ; //vec2(shift[j][0], shift[j][1]) ;
-				Vertex_handle sc = insert(newp) ;
-				sc->domain = j ; //mc->index ; 
-				sc->index = mc->index ;
-				mirrors_[mc->index].insert(sc) ;
-			}
-		}
-		end_insert_copies(redraw) ;
-	}
-
 	// the opposite domain the current domain
 	// domain 0 maps to itself
 	static int opposite_domain(int idx) {
@@ -1927,172 +1497,6 @@ namespace Geex {
 		return opp_domain[idx] ;
 	}
 
-	void Delaunay::insert_copies_ring(bool redraw) {
-		static int edge_domain[] = {6, 8, 2, 4} ;
-		static int vert_domain[] = {5, 7, 1, 3} ;
-		std::vector<std::pair<int, int> > to_insert ;
-		unsigned int nv = all_vertices_.size() ;
-
-		mirror_vertices_.clear() ;
-		mirrors_.clear() ;
-
-		for(unsigned int i=0; i<nv; ++i) {
-			if(dual_cell_intersects_boundary(all_vertices_[i])) {
-				Polygon2* P = dual_convex_clip(all_vertices_[i]) ;
-				for(unsigned int j=0; j<P->size(); ++j) {
-					int bidx = (*P)[j].boundary_index() ;
-
-					if(bidx>=0) {
-						to_insert.push_back(std::pair<int, int>(i, edge_domain[bidx])) ;
-						if((*P)[j].vertex[0].on_boundary) {
-							to_insert.push_back(std::pair<int, int>(i, vert_domain[bidx])) ;
-						}
-					}
-				}
-			}
-		}
-
-		if(to_insert.size()>0) {
-			begin_insert_copies() ;
-			for(unsigned int i=0; i<to_insert.size(); ++i) {
-				vec2 newp = to_geex(all_vertices_[to_insert[i].first]->point()) + domain_offset_[to_insert[i].second] ;
-				Vertex_handle newv = insert(newp) ;
-				newv->index = to_insert[i].first ; 	 
-				newv->domain = to_insert[i].second ; //to_insert[i].first ; 	 
-				gx_assert(!is_primary(newv)) ;
-				mirror_vertices_[newv->index].push_back(newv) ;
-				mirrors_[to_insert[i].first].insert(newv) ; //
-			}
-			end_insert_copies(true) ;
-		}
-
-		// check copies
-		to_insert.clear() ;
-
-		for(unsigned int i=0; i<nv; ++i) {
-			std::vector<Vertex_handle>& M = mirror_vertices_[i] ;
-			for(unsigned int j=0; j<M.size(); ++j) {
-				Vertex_handle vh = M[j] ;
-				int opp = opposite_domain(M[j]->domain) ;
-				int vid = M[j]->index ;
-				gx_assert(vid==i) ;
-
-				Vertex_circulator cir = adjacent_vertices(M[j]) ;
-				Vertex_handle vpri = all_vertices_[vid] ;
-				do {
-					if(is_primary(cir)) {
-						Vertex_circulator cir2 = adjacent_vertices(vpri) ;
-						bool find = false ;
-						do {
-							if(cir2->index == cir->index) {
-								find = true ;
-							}
-							++cir2 ;
-						} while(cir2!=adjacent_vertices(vpri)) ;
-
-						if(!find) {
-							to_insert.push_back(std::pair<int, int>(cir->index, opp)) ;
-						}
-					}
-					++cir ;
-				} while(cir!=adjacent_vertices(M[j])) ;
-			}
-		}
-
-		if(to_insert.size()>0) {
-			begin_insert_copies() ;
-			for(unsigned int i=0; i<to_insert.size(); ++i) {
-				vec2 newp = to_geex(all_vertices_[to_insert[i].first]->point()) + domain_offset_[to_insert[i].second] ;
-				Vertex_handle newv = insert(newp) ;
-				newv->index = to_insert[i].first ; 	 
-				newv->domain = to_insert[i].second ; //to_insert[i].first ; 	 
-				gx_assert(!is_primary(newv)) ;
-				mirror_vertices_[newv->index].push_back(newv) ;
-				mirrors_[to_insert[i].first].insert(newv) ; //
-			}
-			end_insert_copies(true) ;
-		}
-	}
-
-	vec2 Delaunay::copy_point(vec2& p, PolygonEdge& e) {
-		// find the transform vector. only for square
-		vec2 dir = e.vertex[1] - e.vertex[0] ;
-		dir /= dir.length() ;
-		return p + vec2(-dir[1], dir[0]) ;
-	}
-
-	vec2 Delaunay::copy_point(vec2& p, PolygonVertex& e) {
-		return p ;	
-	}
-
-	void Delaunay::clear_copies(bool redraw) {
-		std::vector<vec2> points ;
-		for(int i=0; i<all_vertices_.size(); ++i) {
-			if(is_primary(all_vertices_[i]))
-				points.push_back(to_geex(all_vertices_[i]->point())) ;
-		}
-		mirrors_.clear() ;
-		mirror_vertices_.clear() ;
-
-		clear() ;
-		begin_insert() ;
-		for(int i=0; i<points.size(); ++i)
-			insert(points[i]) ;
-		end_insert(redraw) ;
-	}
-
-	void Delaunay::begin_insert_copies() {	opened_ = true ; }
-
-	void Delaunay::end_insert_copies(bool redraw) {
-		for(Vertex_iterator it = vertices_begin() ; it != vertices_end() ; it++) {
-			it->dual_intersects_boundary = false ;
-			it->dual_infinite = false ;
-		//	it->index = -1 ;
-		}
-
-		for(Face_iterator it = faces_begin() ; it != faces_end() ; it++) {
-			if(is_infinite(it)) {
-//				it->infinite = true ;
-				it->dual = vec2(0.0, 0.0) ;
-				it->dual_outside = true ;
-				it->vertex(0)->dual_infinite = true ;
-				it->vertex(1)->dual_infinite = true ;
-				it->vertex(2)->dual_infinite = true ;
-			} else {
-//				it->infinite = false ;
-				it->dual = to_geex(baseclass::dual(it)) ;
-				it->dual_outside = !in_boundary(it->dual) ;
-			}
-			if(it->dual_outside) {
-				for(int i=0; i<3; ++i) {
-					if(in_boundary(to_geex(it->vertex(i)->point())))
-						it->vertex(i)->dual_intersects_boundary = true ;
-				}
-			} else{
-				for(int i=0; i<3; ++i) {
-					if(!in_boundary(to_geex(it->vertex(i)->point())))
-						it->vertex(i)->dual_intersects_boundary = true ;
-				}
-			}
-		}        
-
-
-
-		/*
-		** for the case that Voronoi cell intersects the domain but
-		** the Voronoi vertices are outside
-		*/
-		for(unsigned int i=0; i<boundary_.size(); ++i) {
-			PolygonEdge& e = boundary_[i] ;
-			Vertex_handle vh = nearest(e.vertex[0]) ;
-			all_vertices_[vh->index]->dual_intersects_boundary = true ;
-		}
-
-		opened_ = false ;
-		if(redraw) {
-			glut_viewer_redraw() ;            
-		}
-	}
 
 	vec2 Delaunay::mirror_vertex_point(vec2& p, int vidx) {
 		gx_assert(vidx>=0 && vidx<4) ;
@@ -2185,7 +1589,6 @@ namespace Geex {
 			}
 
 			if(to_insert.size()>0) {
-				begin_insert_copies() ;
 				for(unsigned int i=0; i<to_insert.size(); ++i) {
 					vec2 newp = to_geex(all_vertices_[to_insert[i].first]->point()) + domain_offset_[to_insert[i].second] ;
 					Vertex_handle newv = insert(newp) ;
@@ -2195,7 +1598,6 @@ namespace Geex {
 					mirror_vertices_[newv->index].push_back(newv) ;
 					mirrors_[to_insert[i].first].insert(newv) ; //
 				}
-				end_insert_copies(true) ;
 			}
 			else {
 				suc = true ;
@@ -2243,7 +1645,6 @@ namespace Geex {
 			}
 
 			if(to_insert.size()>0) {
-				begin_insert_copies() ;
 				for(unsigned int i=0; i<to_insert.size(); ++i) {
 					vec2 newp = to_geex(all_vertices_[to_insert[i].first]->point()) + domain_offset_[to_insert[i].second] ; 
 					Vertex_handle newv = insert(newp) ;//to_insert[i].second) ;
@@ -2252,7 +1653,6 @@ namespace Geex {
 					gx_assert(!is_primary(newv)) ;
 					mirrors_[to_insert[i].first].insert(newv) ; //
 				}
-				end_insert_copies(false) ;
 			}
 			else {
 				suc = true ;
