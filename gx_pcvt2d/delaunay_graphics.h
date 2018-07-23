@@ -80,6 +80,8 @@ namespace Geex {
         void draw_vertices() ;
         void draw_centers() ;
         void draw_cells(bool colorize = true, bool mesh = false) ;
+        void draw_edge() ;
+        void draw_dual_point() ;
         void draw_primal_mesh() ;
         void draw_dual_mesh() ;
 		void draw_dual_edges() ;
@@ -124,6 +126,8 @@ namespace Geex {
 		GLboolean show_min_max_ ;
 		GLboolean show_inner_voronoi_ ;
 		GLboolean show_regularity_ ; 
+        GLboolean show_edge_ ;
+        GLboolean show_dual_point_ ;
 	} ;
 
 } 

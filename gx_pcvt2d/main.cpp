@@ -67,7 +67,7 @@ namespace Geex {
             }
             nb_points_ = 100 ;
             get_arg("nb_pts", nb_points_) ;
-            nb_iter_ = 50 ;
+            nb_iter_ = 1 ;
             get_arg("nb_iter", nb_iter_) ;            
             non_convex_ = GL_FALSE ;
             get_arg("non_convex", non_convex_) ;
@@ -125,11 +125,11 @@ namespace Geex {
         }
 
 		void insert_copies() {
-			cvt()->insert_copies(cvt()->pvd_mode()==FULL_COPY) ;
+			//cvt()->insert_copies(cvt()->pvd_mode()==FULL_COPY) ;
 		}
 
 		void clear_copies() {
-			cvt()->clear_copies(true) ;
+			//cvt()->clear_copies(true) ;
 		}
 
 		void save() {
@@ -344,7 +344,7 @@ namespace Geex {
     } ;
 }
 
-/*Geex::CVTApp* cvt_app() { return static_cast<Geex::CVTApp*>(Geex::GeexApp::instance()) ; }
+Geex::CVTApp* cvt_app() { return static_cast<Geex::CVTApp*>(Geex::GeexApp::instance()) ; }
 
 void Lloyd() {
     cvt_app()->Lloyd() ;
@@ -426,7 +426,7 @@ void update_gapss() {
 }
 
 void batch_snapshot() {
-	std::string dir = Geex::FileSystem::get_project_root() + "/gx_pcvt2d/" ;
+	/*std::string dir = Geex::FileSystem::get_project_root() + "/gx_pcvt2d/" ;
 	char filename[1024] ;
 	int N = 6, nSol = 5 ;
 	for(int i=0; i<nSol; ++i) {
@@ -436,7 +436,7 @@ void batch_snapshot() {
 		glut_viewer_redraw() ;
 		sprintf(filename, "%sdata/6/pcvt%d_%d.png", dir.c_str(), N, i+1) ;
 		cvt_app()->cvt()->snapshot(filename) ;
-	}
+	}*/
 }
 
 void Lloyd_fpo() {
@@ -445,12 +445,12 @@ void Lloyd_fpo() {
 
 void insert_grid() {
 	cvt_app()->insert_grid() ;
-}*/
+}
 
 int main(int argc, char** argv) {
     Geex::initialize() ;
     Geex::CVTApp app(argc, argv) ;
-    /*glut_viewer_add_key_func('k', Lloyd, "Lloyd iterations") ;
+    glut_viewer_add_key_func('k', Lloyd, "Lloyd iterations") ;
     glut_viewer_add_key_func('K', Lloyd1, "Lloyd one iteration") ;
 	glut_viewer_add_key_func('f', Lloyd_fpo, "Lloyd fpo iterations") ;
     glut_viewer_add_key_func('m', NewtonLloyd, "Newton-Lloyd iterations") ;
@@ -458,19 +458,19 @@ int main(int argc, char** argv) {
     glut_viewer_add_key_func('Z', reset, "reset") ;
 	glut_viewer_add_key_func('g', insert_grid, "insert_grid") ;
 	glut_viewer_add_key_func('j', compute_hessian, "Hessian") ;
-	glut_viewer_add_key_func('i', insert_copies, "Insert copies") ;
-	glut_viewer_add_key_func('c', clear_copies, "clear copies") ;
+	//glut_viewer_add_key_func('i', insert_copies, "Insert copies") ;
+	//glut_viewer_add_key_func('c', clear_copies, "clear copies") ;
 	glut_viewer_add_key_func('u', euclidean, "show euclidean") ;
 	glut_viewer_add_key_func('s', save, "save points") ;
 	glut_viewer_add_key_func('o', load, "load points") ;
 	glut_viewer_add_key_func('d', stats, "statistic") ;
 	glut_viewer_add_key_func('z', generate_poisson_disk, "generate poisson disk") ;
 	glut_viewer_add_key_func('v', update_gapss, "update void regions") ;
-	glut_viewer_add_key_func('b', batch_snapshot, "snapshots") ;
+	//glut_viewer_add_key_func('b', batch_snapshot, "snapshots") ;
 	glut_viewer_add_key_func('p', do_perturb, "perturb") ;
     glut_viewer_add_toggle('e', &(cvt_app()->edit()), "edit") ;
     glut_viewer_add_key_func('<', dec_Lp, "decrement Lp") ;
-    glut_viewer_add_key_func('>', inc_Lp, "increment Lp") ;*/
+    glut_viewer_add_key_func('>', inc_Lp, "increment Lp") ;
     glut_viewer_disable(GLUT_VIEWER_3D) ;
     app.main_loop() ;
     Geex::terminate() ;

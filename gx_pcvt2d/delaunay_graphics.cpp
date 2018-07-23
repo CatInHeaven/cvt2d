@@ -132,6 +132,8 @@ namespace Geex {
 		show_min_max_ = GL_FALSE ;
 		show_inner_voronoi_ = GL_FALSE ;
 		show_regularity_ = GL_FALSE ;
+		show_edge_ = GL_TRUE ;
+		show_dual_point_ = GL_TRUE ;
     }
     
     void DelaunayGraphics::draw() {
@@ -204,8 +206,16 @@ namespace Geex {
 		if(show_regularity_) {
             draw_regularity() ;
         }
+		
+		if(show_edge_){
+			draw_edge() ;
+		}
 
+		if(show_dual_point_){
+			draw_dual_point() ;
+		}
 		draw_selection() ;
+
     }
 
     void DelaunayGraphics::draw_domain() {
@@ -253,20 +263,24 @@ namespace Geex {
 //        begin_spheres() ;
 		if(!vertices_color_) {
 			FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
-				if(!show_copies_ && !delaunay_->is_primary(v))
-					continue ;
+				//if(!show_copies_ && !delaunay_->is_primary(v))
+				//	continue ;
 /*				if(v->locked) {
 					glColor3f(1.0,0.0,0.0) ;
-				} else*/ {
-					glColor3f(0.0,0.0,0.0) ;
-				}
-				glVertex2f(v->point().x(), v->point().y()) ;
+				} else*/ 
+				// if(!delaunay_->is_primary(v))
+				// 	continue ;
+				glColor3f(0.0,0.0,0.0) ;
+				Point p = delaunay_->point(delaunay_->periodic_point(v));
+				glVertex2f(p.x(), p.y()) ;
 			}
 		}
 		else {
 			FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
-				if(!show_copies_ && !delaunay_->is_primary(v))
-					continue ;
+				//if(!show_copies_ && !delaunay_->is_primary(v))
+				//	continue ;
+				// if(!delaunay_->is_primary(v))
+				// 	continue ;
 				int deg = delaunay_->degree(v) ;
 				gl_vertex_color(deg) ;
 				Point p = delaunay_->point(delaunay_->periodic_point(v));
@@ -283,8 +297,8 @@ namespace Geex {
                 double R = 0.5 * radius(v) ;
                 vec2 p = to_geex(v->point()) ;
                 
-				if(!show_copies_ && !delaunay_->is_primary(v))
-					continue ;
+				// if(!show_copies_ && !delaunay_->is_primary(v))
+				// 	continue ;
 
                 vec2 U,V ;
                 CVT_->query_anisotropy(p,U,V) ;
@@ -316,17 +330,11 @@ namespace Geex {
         FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
             double V ;
             vec2 g ;
-			
-			if(!show_copies_ && !delaunay_->is_primary(v))
+			if(!delaunay_->is_primary(v))
 				continue ;
 
-			if(CVT_->period()) {
-				if(!delaunay_->is_primary(v))
-					continue ;
-				CVT_->get_cell_primary_centroid(v, g, V) ;
-			}
-			else 
-				CVT_->get_cell_centroid(v, g, V) ;
+			CVT_->get_cell_primary_centroid(v, g, V) ;
+				//CVT_->get_cell_centroid(v, g, V) ;
             vec2 p = g ;
             glVertex2f(p.x, p.y) ;
         }
@@ -376,6 +384,37 @@ namespace Geex {
         }
     }
 
+	void DelaunayGraphics::draw_edge(){
+		glColor3f(0.1, 0.1, 1.0) ;
+		FOR_EACH_EDGE_DT(Delaunay, delaunay_, e) {
+			CGAL_Segment Seg = delaunay_->segment(e);
+			glBegin(GL_LINES) ;
+			glVertex(to_geex(Seg.start())) ;
+			glVertex(to_geex(Seg.end())) ;
+			glEnd() ;	
+		}
+	}
+
+	void DelaunayGraphics::draw_dual_point(){
+		glColor3f(0.0,0.0,0.0) ;
+		glPointSize(5) ;
+		glEnable(GL_POINT_SMOOTH) ;
+        glBegin(GL_POINTS) ;
+		//std::cerr << delaunay_->number_of_faces() << std::endl ;
+		FOR_EACH_FACE_DT(Delaunay, delaunay_, v) {
+
+			//Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
+			//do {
+				const vec2& p = v->dual ;
+				//std::cerr << "p = (" <<p.x << "," << p.y<< ")" << std::endl ;
+				glVertex2f(p.x, p.y) ;
+			//	it++ ; 
+				
+			//} while(it != delaunay_->incident_faces(v)) ;
+        }
+		glEnd() ;
+	}
+
 	void DelaunayGraphics::draw_inner_voronoi() {
 		glColor3f(0.0f, 1.0f, 0.0f) ;
 		glLineWidth(2.0f) ;	
@@ -411,23 +450,8 @@ namespace Geex {
 		FOR_EACH_EDGE_DT(Delaunay, delaunay_, e) {
 			CGAL_Segment seg = delaunay_->baseclass::dual(e) ;
 			glBegin(GL_LINES) ;
-			/*if(CGAL::assign(ray, o)) {
-				glVertex(to_geex(ray.source())) ;
-				glVertex(to_geex(ray.source()+1e3*ray.to_vector())) ;
-			}
-			else if(CGAL::assign(seg, o)) {*/
-				glVertex(to_geex(seg.start())) ;
-				glVertex(to_geex(seg.end())) ;
-			/*}
-			else if(CGAL::assign(line, o)) {
-				if(line.b()!=0) {
-					glVertex(vec2(-1e3, -1e3*(-line.a()/line.b())-line.c()/line.b())) ;
-					glVertex(vec2(1e3,  1e3*(-line.a()/line.b())-line.c()/line.b())) ;
-				} else {
-					glVertex(vec2(-1e3*(-line.b()/line.a())-line.c()/line.a(), -1e3)) ;
-					glVertex(vec2( 1e3*(-line.b()/line.a())-line.c()/line.a(),  1e3)) ;
-				}
-			}*/
+			glVertex(to_geex(seg.start())) ;
+			glVertex(to_geex(seg.end())) ;
 			glEnd() ;
 		}
 	}

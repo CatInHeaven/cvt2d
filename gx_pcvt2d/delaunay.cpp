@@ -1184,7 +1184,6 @@ namespace Geex {
 
     void Delaunay::end_insert(bool redraw) {
         all_vertices_.clear() ;
-
         for(Vertex_iterator it = vertices_begin() ; it != vertices_end() ; it++) {
             it->dual_intersects_boundary = false ;
 			it->dual_infinite = false ;
@@ -1193,33 +1192,35 @@ namespace Geex {
         }
 
 		for(Face_iterator it = faces_begin() ; it != faces_end() ; it++) {
-            if(is_infinite(it)) {
-//                it->infinite = true ;
-                it->dual = vec2(0.0, 0.0) ;
-                it->dual_outside = true ;
-				it->vertex(0)->dual_infinite = true ;
-				it->vertex(1)->dual_infinite = true ;
-				it->vertex(2)->dual_infinite = true ;
-            } else {
 //                it->infinite = false ;
-                it->dual = to_geex(baseclass::dual(it)) ;
-                it->dual_outside = !in_boundary(it->dual) ;
-            }
-            if(it->dual_outside) {
-				if(in_boundary(to_geex(it->vertex(0)->point())))
-					it->vertex(0)->dual_intersects_boundary = true ;
-					it->vertex(1)->dual_intersects_boundary = true ;
-					it->vertex(2)->dual_intersects_boundary = true ;
-			} 
+            it->dual = to_geex(baseclass::dual(it)) ;
+			//std::cerr << "dual = (" <<(it->dual).x << "," << (it->dual).y<< ")" << std::endl ;
+            // it->dual_outside = !in_boundary(it->dual) ;
+            // if(it->dual_outside) {
+			// 	if(in_boundary(to_geex(it->vertex(0)->point())))
+			// 		it->vertex(0)->dual_intersects_boundary = true ;
+			// 		it->vertex(1)->dual_intersects_boundary = true ;
+			// 		it->vertex(2)->dual_intersects_boundary = true ;
+			// } 
         }        
        
         all_vertices_.clear() ;
         int cur_index = 0 ;
         for(Vertex_iterator it = vertices_begin(); it != vertices_end() ; it++) {
             all_vertices_.push_back(it) ;
-            it->index = cur_index ;
-			it->domain = 0 ; 
-            cur_index++ ;
+            //it->index = cur_index ;
+			//it->domain = 0 ; 
+            //cur_index++ ;
+			//std::cerr << "p = (" <<it->point().x << "," << it->point().y<< ")" << std::endl ;
+			// vec2 p0 = to_geex(it->point()) ;
+            // std::cerr << "p0 = (" <<p0.x << "," << p0.y<< ")" << std::endl ;
+			// Face_circulator f = incident_faces(it) ;
+			// do {
+			// 	const vec2& p1 = f->dual ;
+			// 	std::cerr << "p = (" <<p1.x << "," << p1.y<< ")" << std::endl ;
+			// 	f++ ;
+				
+			// } while(f != incident_faces(it)) ;
         }
 
 		/*
@@ -1237,6 +1238,20 @@ namespace Geex {
         if(redraw) {
             glut_viewer_redraw() ;            
         }
+		
+		// for(Vertex_iterator it = vertices_begin(); it != vertices_end() ; it++) {
+		// 	vec2 p0 = to_geex(it->point()) ;
+		// 	Point p_ = point(periodic_point(it));
+        //     std::cerr << "p0 = (" <<p0.x << "," << p0.y<< ")" << std::endl ;
+
+		// 	Face_circulator f = incident_faces(it) ;
+		// 	do {
+		// 		const vec2& p1 = f->dual ;
+		// 		std::cerr << "p = (" <<p1.x << "," << p1.y<< ")" << std::endl ;
+		// 		f++ ;
+				
+		// 	} while(f != incident_faces(it)) ;
+        // }
     }
 	
     void Delaunay::insert_random_vertex() {
@@ -1266,26 +1281,73 @@ namespace Geex {
         begin_insert() ;
         for(unsigned int i=0; i<nb; i++) {
             insert_random_vertex() ;
-			/*Geex::vec2 p;
-			for (double x = 0. ; x < .9 ; x += 0.4)
-  			{
-				p.x = x;  
-    			for (double y = 0. ; y < .9 ; y += 0.4)
-    			{
-					p.y = y;
-      				insert(p);
-    			}
-  			}*/
             //std::cerr << (i+1) << '/' << nb << std::endl ;
         }
-        if(insert_boundary_ ) {
-            for(unsigned int i=0; i<boundary_.size(); i++) {
-                Vertex_handle v = insert(boundary_[i].vertex[0]) ;
-        //        v->locked = true ;
-            }
-        }
-        end_insert(false) ;
+		// Geex::vec2 p;
+		// for (double x = 0. ; x < .9 ; x += 0.4)
+		// {
+		// 	p.x = x;  
+		// 	for (double y = 0. ; y < .9 ; y += 0.4)
+		// 	{
+		// 		p.y = y;
+		// 		insert(p);
+		// 	}
+		// }
+		// p.x = 0; p.y = 0;
+		// insert(p);
+		// p.x = 0.4; p.y = 0.2;
+		// insert(p);
+		// p.x = 0.6; p.y = 0.8;
+		// insert(p);
+		/*Geex::vec2 p;
+		p.x=0.75374;p.y=0.439366;
+		insert(p);
+		p.x=0.366083;p.y=0.434356;
+		insert(p);
+		p.x=0.918608;p.y=0.316349;
+		insert(p);
+		p.x=0.550018;p.y=0.985118;
+		insert(p);
+		p.x=0.328301;p.y=0.140462;
+		insert(p);
+		p.x=0.0731267;p.y=0.628529;
+		insert(p);
+		p.x=0.128503;p.y=0.959475;
+		insert(p);
+		p.x=0.557503;p.y=0.185418;
+		insert(p);
+		p.x=0.506609;p.y=0.691019;
+		insert(p);
+		p.x=0.322246;p.y=0.292485;
+		insert(p);
+		p.x=0.702035;p.y=0.270185;
+		insert(p);
+		p.x=0.122925;p.y=0.315214;
+		insert(p);
+		p.x=0.915548;p.y=0.514106;
+		insert(p);
+		p.x=0.71081;p.y=0.895331;
+		insert(p);
+		p.x=0.932308;p.y=0.857711;
+		insert(p);
+		p.x=0.534756;p.y=0.470071;
+		insert(p);
+		p.x=0.302081;p.y=0.722297;
+		insert(p);
+		p.x=0.3287;p.y=0.969127;
+		insert(p);
+		p.x=0.722597;p.y=0.647672;
+		insert(p);
+		p.x=0.900668;p.y=0.116336;
+		insert(p);*/
+        // if(insert_boundary_ ) {
+        //     for(unsigned int i=0; i<boundary_.size(); i++) {
+        //         Vertex_handle v = insert(boundary_[i].vertex[0]) ;
+        // //        v->locked = true ;
+        //     }
+        // }
 		convert_to_9_sheeted_covering();
+        end_insert(false) ;
     }
 
 	void Delaunay::insert_grid(int nb) {

@@ -65,7 +65,7 @@ namespace Geex {
         enum { MAX_P = 9 } ;
         DelaunayCVT(Delaunay* delaunay) ;
         ~DelaunayCVT() ;
-        void lloyd(int nb_iter = 1, bool redraw = true) ;
+        void lloyd(int nb_iter = 50, bool redraw = true) ;
         void newton_lloyd(int nb_iter = 1, bool redraw = true) ;
         static DelaunayCVT* instance() { return instance_ ; }
         std::vector<Delaunay::Vertex_handle>& all_vertices() { return delaunay_->all_vertices_ ; }

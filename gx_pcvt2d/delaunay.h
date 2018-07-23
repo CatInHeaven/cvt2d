@@ -179,7 +179,7 @@ class GridCell ;
 		void insert_copies_ring(bool redraw=false) ;
 		void insert_copies_poisson(double radius, bool redraw=false) ;
 
-		bool is_primary(Vertex_handle v) { return v->domain == 0 ; }
+		bool is_primary(Vertex_handle v) { return periodic_point(v).second.x()==1&&periodic_point(v).second.y()==1 ; }
 		bool neighbor_to_primary(Vertex_handle v) ;
 		bool is_full_hex() ; // check pvd configuration
 		int  nb_primary() ;

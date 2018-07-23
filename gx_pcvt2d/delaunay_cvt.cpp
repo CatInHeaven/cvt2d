@@ -144,40 +144,11 @@ namespace Geex {
     }
 
 	void DelaunayCVT::smooth(int nb_iter, bool redraw) {
-		std::vector<vec2> new_points ;
 
-		for(int i=0; i<nb_iter; ++i) {
-			std::vector<Delaunay::Vertex_handle>& vertices = delaunay_->vertices() ;
-			new_points.clear() ;
-
-			for(unsigned j=0; j<vertices.size(); ++j) {
-				vec2 cj ;
-				if(delaunay_->is_primary(vertices[j])) {
-					get_vertex_center(vertices[j], cj) ;
-					get_primary_position(cj) ;
-					new_points.push_back(cj) ;
-				}
-			}
-
-			delaunay_->set_vertices(new_points) ;
-			if(redraw) {
-				glut_viewer_redraw() ;
-			}
-			std::cerr << "iteration " << i << " number of vertices: " << new_points.size() << std::endl ;
-		}
 	}
 
 	void DelaunayCVT::get_vertex_center(Delaunay::Vertex_handle v, vec2& g) {
-		double L = 0 ;
-		vec2 p0 = to_geex(v->point()) ;
-		g = vec2(0, 0) ;
-		Delaunay::Vertex_circulator cir = delaunay_->adjacent_vertices(v) ;
-		do {
-			double w = distance(p0, to_geex(cir->point())) ;
-			g += w * to_geex(cir->point()) ;
-			L += w ;
-		} while(cir != delaunay_->adjacent_vertices(v)) ;
-		g = 1/L * g ;
+
 	}
 
 	static double dxx(double xix, double xkx, double p1x, double p2x) {
@@ -199,69 +170,7 @@ namespace Geex {
 	}
 
 	void DelaunayCVT::compute_hessian() {
-		int nv = delaunay_->nb_vertices() ;
-		TNT::Matrix<double> H(nv*2, nv*2) ;
 
-		for(int i=0; i<nv; ++i) {
-			Delaunay::Vertex_handle v = delaunay_->vertices()[i] ;
-			const int idxi = v->index ;
-			vec2 xi = to_geex(v->point()) ;
-			double vor = 0 ;
-			vec2 gi(0, 0) ;
-
-			// 
-			Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-			Delaunay::Face_circulator jt = it ; jt++ ;
-			do {
-				const vec2& p1 = it->dual ;
-				const vec2& p2 = jt->dual ;
-				Delaunay::Vertex_handle vj = it->vertex(it->ccw(it->index(jt))) ;
-				vec2 xj = to_geex(vj->point()) ;
-				double aij = (xi-xj).length() ;
-				double uij = (p1-p2).length() ;
-				vec2   xij = 0.5*(p1 + p2) ;
-				double Vi = triangle_area(xi, p1, p2) ;
-				vec2 Gi = triangle_centroid(xi, p1, p2) ;
-				vor += Vi ;
-				gi += Vi * Gi ;
-				int idxj = vj->index ; // delaunay_->is_primary(vj) ? vj->index : vj->domain ;
-				double xxij[2][2] ;
-
-				//H[2*idxi][2*idxi]     += Vi - dxx(xi[0], xi[0], p1[0], p2[0])*uij/aij ;
-				//H[2*idxi+1][2*idxi+1] += Vi - dxx(xi[1], xi[1], p1[1], p2[1])*uij/aij ;
-				//H[2*idxi][2*idxi+1]   += - dxy(xi, xi, p1, p2)*uij/aij ;
-				//H[2*idxi+1][2*idxi]   += - dyx(xi, xi, p1, p2)*uij/aij ;
-				//H[2*idxi][2*idxj]     = dxx(xi[0], xj[0], p1[0], p2[0])*uij/aij ;
-				//H[2*idxi+1][2*idxj+1] = dxx(xi[1], xj[1], p1[1], p2[1])*uij/aij ;
-				//H[2*idxi][2*idxj+1]   = dxy(xi, xj, p1, p2)*uij/aij ;
-				//H[2*idxi+1][2*idxj]   = dyx(xi, xj, p1, p2)*uij/aij ;
-				
-				xxij[0][0] = (p1[0]*p1[0] + p1[0]*p2[0] + p2[0]*p2[0])/3.0;
-				xxij[0][1] = (p1[0]*p1[1] + p2[0]*p2[1])/3.0 + (p1[0]*p2[1]+p1[1]*p2[0])/6.0 ;
-				xxij[1][0] = xxij[0][1] ;
-				xxij[1][1] = (p1[1]*p1[1] + p1[1]*p2[1] + p2[1]*p2[1])/3.0 ;
-
-				H[2*idxi][2*idxi]     += Vi ;
-				H[2*idxi+1][2*idxi+1] += Vi ;
-				for(int ll=0; ll<2; ++ll)
-					for(int kk=0; kk<2; ++kk) {
-						H[2*idxi+ll][2*idxi+kk] -= (xi[kk]*xi[ll] - xi[kk]*xij[ll] - xij[kk]*xi[ll] + xxij[kk][ll])*uij/aij ;
-						H[2*idxi+ll][2*idxj+kk] += (xi[kk]*xj[ll] - xi[kk]*xij[ll] - xij[kk]*xj[ll] + xxij[kk][ll])*uij/aij ;
-					}
-				it++ ; jt++ ;
-			} while(it != delaunay_->incident_faces(v)) ;
-
-			gi = 1.0/vor*gi ;
-//			gx_assert((xi-gi).length()<1e-6) ;
-		}
-
-		// print Hessian matrix
-		ofstream out("hessian.txt") ;
-		out << H ;
-		out.close() ;
-
-
-//		TNT::Linear_Algebra::Eigenvalue eigen(H) ;
 	}
 
     void DelaunayCVT::lloyd(int nb_iter, bool redraw) {
@@ -269,7 +178,9 @@ namespace Geex {
             std::vector<vec2> new_points ;
 			std::vector<bool> flags ;
 			
-			delaunay_->compute_rvd() ;
+
+			//delaunay_->compute_rvd() ;
+
 
             FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
 /*				if(v->locked) {
@@ -302,58 +213,43 @@ namespace Geex {
             delaunay_->begin_insert() ;
             for(unsigned int j=0; j<new_points.size(); j++) {
 				Delaunay::Vertex_handle v = delaunay_->insert(new_points[j]) ;
-			//	v->locked = flags[j] ;
             }
+            convert_to_9_sheeted_covering();
             delaunay_->end_insert(false) ;
 
-
             double F = lloyd_energy() ;
+			//if(period()) {
+			//	delaunay_->clear_copies(false) ;
+			//}
             
 			if(redraw) {
                 //std::cerr << "Lloyd energy = " << F << std::endl ;
 				glut_viewer_redraw() ;
 				std::cout << "Lloyd energy = " << 16*F/12 << std::endl ;
             }
+            FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
+                vec2 p0 = to_geex(v->point()) ;
+                //std::cerr << "p0 = (" <<p0.x << "," << p0.y<< ")" << std::endl ;
+                Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
+                do {
+                    const vec2& p1 = it->dual ;
+                    //std::cerr << "p1 = (" <<p1.x << "," << p1.y<< ")" << std::endl ;
+
+                    it++ ;
+                    
+                } while(it != delaunay_->incident_faces(v)) ;
+            }
+            
         }
     }
 
 	void DelaunayCVT::lloyd_fpo(int nb_iter, bool redraw) {
-		gx_assert(period()) ;
 
-        for(unsigned int k=0; k<nb_iter; k++) {
-            std::vector<vec2> new_points ;
-			
-			delaunay_->compute_rvd() ;
-
-            FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
-				if(!delaunay_->is_primary(v)) continue ;
-				
-				std::vector<vec2> P ;				
-				delaunay_->compute_inner_voronoi(v, P) ;
-				vec2 g = polygon_centroid(P) ;
-				get_primary_position(g) ;
-				new_points.push_back(g) ;
-            }
-            delaunay_->clear() ;
-            delaunay_->begin_insert() ;
-            for(unsigned int j=0; j<new_points.size(); j++) {
-				Delaunay::Vertex_handle v = delaunay_->insert(new_points[j]) ;
-			//	v->locked = flags[j] ;
-            }
-            delaunay_->end_insert(false) ;
-            
-			if(redraw) {
-                //std::cerr << "Lloyd energy = " << F << std::endl ;
-				glut_viewer_redraw() ;
-//				std::cout << "Lloyd energy = " << F << std::endl ;
-            }
-        }
 	}
 
     //----------------------------------------------------------------------------------------------------
 
     void DelaunayCVT::newton_lloyd(int nb_iter, bool redraw) {
-
         use_theta_ = (mode() == THETA) ;
 
         if(use_theta_) {
@@ -437,79 +333,12 @@ namespace Geex {
     }
 
 	void DelaunayCVT::move_vertices(vec2 delta) {
-		std::vector<vec2> points ;
-		std::vector<Delaunay::Vertex_handle>& vertices = delaunay_->vertices() ;
 
-		for(unsigned int i=0; i<vertices.size(); ++i) {
-			if(delaunay_->is_primary(vertices[i])) {
-				vec2 newp = to_geex(vertices[i]->point()) + delta ;
-				points.push_back(newp) ;
-			}
-		}
-
-		delaunay_->clear() ;
-		delaunay_->begin_insert() ;
-		for(unsigned int i=0; i<points.size(); ++i) 		{
-			vec2 newp = points[i] ;
-			if(period()) 
-				get_primary_position(newp) ;
-			Delaunay::Vertex_handle v = delaunay_->insert(newp) ;
-		}
-		delaunay_->end_insert(false) ;
 
 	}
 
     void DelaunayCVT::set_vertices(const double* x) {
-        std::vector<double> energy ;
-        std::vector<bool> locked ;
-		std::vector<double> regularity ;
-		int nb_master = 0 ;
 
-        FOR_EACH_VERTEX_DT(Delaunay, delaunay_, it) {
-			if(period() && !delaunay_->is_primary(it))
-				continue ;
-            //energy.push_back(it->energy) ;
-            //locked.push_back(it->locked) ;
-			regularity.push_back(it->regularity) ;
-			nb_master ++ ;
-        }
-
-//		int n = use_theta_ ? delaunay_->nb_vertices() * 4 : delaunay_->nb_vertices() * 2 ;
-		int n = use_theta_ ? delaunay_->nb_vertices() * 4 : delaunay_->nb_vertices() * 2 ;
-		if(period())
-			n = use_theta_ ? nb_master * 4 : nb_master * 2 ;
-
-        
-        delaunay_->clear() ;
-        delaunay_->begin_insert() ;
-        {
-            int i = 0 ;
-            unsigned int e_i = 0 ;
-            while(i+1 < n) {
-				vec2 newp(x[i], x[i+1]) ;
-				if(period()) 
-					get_primary_position(newp) ;
-                Delaunay::Vertex_handle v = delaunay_->insert(newp) ;
-                if(v == nil || e_i > energy.size()-1 || e_i > locked.size()-1) {
-                } else {
-               //     v->energy = energy[e_i] ;
-               //     v->locked = locked[e_i] ;
-					v->regularity = regularity[e_i] ;
-                }
-                if(v != nil && use_theta_) {
-                //    v->theta = x[i+2] ;
-                //    v->rho = x[i+3] ;
-                }
-                i+=2 ;
-                if(use_theta_) {
-                    i+=2 ;
-                } else {
-                 //   v->theta = default_theta(v) ;
-                }
-                e_i++ ;
-            }
-        }
-        delaunay_->end_insert(false) ;
 
     }
 
@@ -517,77 +346,34 @@ namespace Geex {
     //----------------------------------------------------------------------------------------------------
 
     void DelaunayCVT::get_cell_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) {
-        vec2 p0 = to_geex(v->point()) ;
-        g.x = 0.0 ; g.y = 0.0 ; V = 0.0 ;
-        if(delaunay_->dual_cell_intersects_boundary(v)) { 
-//		if(delaunay_->is_boundary_cell(v)) {
-            Polygon2* P = delaunay_->dual_convex_clip(v) ;
-            for(unsigned int i=0; i<P->size(); i++) {
-                const vec2& p1 = (*P)[i].vertex[0] ;
-                const vec2& p2 = (*P)[i].vertex[1] ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                g += Vi * Gi ;
-            }
-        } else {
-            Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-            Delaunay::Face_circulator jt = it ; jt++ ;
-            do {
-                const vec2& p1 = it->dual ;
-                const vec2& p2 = jt->dual ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                g += Vi * Gi ;
-                it++ ; jt++ ;
-            } while(it != delaunay_->incident_faces(v)) ;
-        }
-        double s = (1.0 / V) ;
-        g.x *= s ;
-        g.y *= s ;
+
     }
 
 	void DelaunayCVT::get_boundary_cell_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) {
-		vec2 p0 = to_geex(v->point()) ;
-        g.x = 0.0 ; g.y = 0.0 ; V = 0.0 ;
 
-		//gx_assert(delaunay_->dual_cell_intersects_boundary(v)) ;
-		Polygon2* P = delaunay_->dual_convex_clip(v) ;
-		double L = 0 ;
-		for(unsigned int i=0; i<P->size(); i++) {
-			if((*P)[i].on_boundary()) {
-				double Li = (*P)[i].length() ;
-				L += Li ;
-				g += Li*0.5*((*P)[i].vertex[0] + (*P)[i].vertex[1]) ;
-			}
-		}
-		gx_assert(L>0) ;
-		g = 1.0/L * g ;
 	}
 
 	//----------------------------------------------------------------------------------------------------
 	void DelaunayCVT::get_primary_position(vec2& g) {
-		if(!delaunay_->in_boundary(g)) {
-			if(g[0]<0) {
+        if(g[0]<0) {
 				while(g[0]<0)
 					g[0]+=1 ;
 			}
-			if(g[0]>1)
-				while(g[0]>1)
+			if(g[0]>=1)
+				while(g[0]>=1)
 					g[0]-=1 ;
 			if(g[1]<0) {
 				while(g[1]<0)
 					g[1]+=1 ;
 			}
-			if(g[1]>1)
-				while(g[1]>1)
+			if(g[1]>=1)
+				while(g[1]>=1)
 					g[1]-=1 ;
-		}
 	}
 
 	void DelaunayCVT::get_cell_primary_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) {
-		vec2 p0 = to_geex(v->point()) ;
+        vec2 p0 = to_geex(v->point()) ;
+        //std::cerr << "p0 = (" <<p0.x << "," << p0.y<< ")" << std::endl ;
 		g.x = 0.0 ; g.y = 0.0 ; V = 0.0 ;
 		Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
 		Delaunay::Face_circulator jt = it ; jt++ ;
@@ -599,347 +385,53 @@ namespace Geex {
 			V += Vi ;
 			g += Vi * Gi ;
 			it++ ; jt++ ;
+            
 		} while(it != delaunay_->incident_faces(v)) ;
+        Delaunay::Vertex_circulator vt = delaunay_->adjacent_vertices(v);
 		double s = (1.0 / V) ;
 		g.x *= s ;
-		g.y *= s ;		
-
+		g.y *= s ;	
 		get_primary_position(g) ;
 	}
 
     //----------------------------------------------------------------------------------------------------
     void DelaunayCVT::get_cell_quasi_incenter(Delaunay::Vertex_handle v, vec2& g) {
-        vec2 p0 = to_geex(v->point()) ;
-        double mat[2][2] ={{0,0},{0,0}}, b[2] = {0,0};  
-        vec2 edge_dir, normal_dir;
-        double tmp;
-        if(delaunay_->dual_cell_intersects_boundary(v)) { 
-            Polygon2* P = delaunay_->dual_convex_clip(v) ;
-            for(unsigned int i=0; i<P->size(); i++) {
-                const vec2& p1 = (*P)[i].vertex[0] ;
-                const vec2& p2 = (*P)[i].vertex[1] ;
-                edge_dir = p1 - p2;
-                double len = edge_dir.length();
-                if (len > 0)
-                {
-                    normal_dir.x = edge_dir.y / len; normal_dir.y = -edge_dir.x / len;
-                    mat[0][0] += len * normal_dir.x * normal_dir.x;
-                    mat[0][1] += len * normal_dir.x * normal_dir.y;
-                    mat[1][1] += len * normal_dir.y * normal_dir.y;
-                    tmp = dot(p1 + p2, normal_dir) * 0.5;
-                    b[0] += len * tmp * normal_dir.x;
-                    b[1] += len * tmp * normal_dir.y;
-                }
-            }
-        } else {
-            Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-            Delaunay::Face_circulator jt = it ; jt++ ;
-            do {
-                const vec2& p1 = it->dual ;
-                const vec2& p2 = jt->dual ;
-                edge_dir = p1 - p2;
-                double len = edge_dir.length();
-                if (len > 0)
-                {
-                    normal_dir.x = edge_dir.y / len; normal_dir.y = -edge_dir.x / len;
-                    mat[0][0] += len * normal_dir.x * normal_dir.x;
-                    mat[0][1] += len * normal_dir.x * normal_dir.y;
-                    mat[1][1] += len * normal_dir.y * normal_dir.y;
-                    tmp = dot(p1 + p2, normal_dir) * 0.5;
-                    b[0] += len * tmp * normal_dir.x;
-                    b[1] += len * tmp * normal_dir.y;
-                }
-                it++ ; jt++ ;
-            } while(it != delaunay_->incident_faces(v)) ;
-        }
 
-        mat[1][0] = mat[0][1];
-        double det = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
-        if(det != 0)
-        {
-            g.x = (b[0]*mat[1][1] - b[1]*mat[0][1])/det;
-            g.y = (b[1]*mat[0][0] - b[0]*mat[1][0])/det;
-        }
-        else
-            g = p0;
     }
    //----------------------------------------------------------------------------------------------------
     
     bool DelaunayCVT::get_fg(Delaunay::Vertex_handle v, double& f, vec2& grad_f) {
-        bool result = true ;
-        double lloyd = 0.0 ;
-        vec2 p0 = to_geex(v->point()) ;
-        vec2 Vg(0.0, 0.0) ;
-        double V = 0.0 ;
-        if(delaunay_->dual_cell_intersects_boundary(v)) { 
-//		if(delaunay_->is_boundary_cell(v) && !period()) {
-            Polygon2* P = delaunay_->dual_convex_clip(v) ;
-//            Polygon2* P = &(delaunay_->rvd_[v->index]) ;
-            for(unsigned int i=0; i<P->size(); i++) {
-                const vec2& p1 = (*P)[i].vertex[0] ;
-                const vec2& p2 = (*P)[i].vertex[1] ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                Vg += Vi * Gi ;
-                lloyd += Lloyd_energy(p0, p1, p2) ;
-            }
 
-			// accumulate energy of mirror sites.
-			if(period()) {
-				std::set<Delaunay::Vertex_handle>& m = delaunay_->mirrors(v->index) ;
-				for(std::set<Delaunay::Vertex_handle>::iterator it=m.begin(); it!=m.end(); ++it) {
-					Polygon2* P = delaunay_->dual_convex_clip(*it) ;
-					vec2 offset = p0 - to_geex((*it)->point()) ;
-					for(unsigned int i=0; i<P->size(); ++i) {
-						const vec2& p1 = (*P)[i].vertex[0] + offset ;
-						const vec2& p2 = (*P)[i].vertex[1] + offset ;
-						double Vi = triangle_area(p0, p1, p2) ;
-						vec2 Gi = triangle_centroid(p0, p1, p2) ;
-						V += Vi ;
-						Vg += Vi * Gi ;
-						lloyd += Lloyd_energy(p0, p1, p2) ;
-					}
-				}
-			}
-        } else {
-            Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-            Delaunay::Face_circulator jt = it ; jt++ ;
-            do {
-                const vec2& p1 = it->dual ;
-                const vec2& p2 = jt->dual ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                Vg += Vi * Gi ;
-                lloyd += Lloyd_energy(p0, p1, p2) ;
-                it++ ; jt++ ;
-            } while(it != delaunay_->incident_faces(v)) ;
-        }
-        f = lloyd ;
-		//if(v->locked) {
-		//	grad_f = vec2(0.0, 0.0) ;
-		//	return true ; 
-		//}
-        if(!delaunay_->in_boundary(to_geex(v->point()))) {
-            result = false ;
-        }
-        grad_f = 2.0 * (V * p0 - Vg) ; 
-        return result ;
     }
 
     bool DelaunayCVT::get_fgv(Delaunay::Vertex_handle v, double& f, vec2& grad_f, double& area) {
-        bool result = true ;
-        double lloyd = 0.0 ;
-        vec2 p0 = to_geex(v->point()) ;
-        vec2 Vg(0.0, 0.0) ;
-        double V = 0.0 ;
-        if(delaunay_->dual_cell_intersects_boundary(v)) { 
-//		if(delaunay_->is_boundary_cell(v) && !period()) {
-            Polygon2* P = delaunay_->dual_convex_clip(v) ;
-//            Polygon2* P = &(delaunay_->rvd_[v->index]) ;
-            for(unsigned int i=0; i<P->size(); i++) {
-                const vec2& p1 = (*P)[i].vertex[0] ;
-                const vec2& p2 = (*P)[i].vertex[1] ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                Vg += Vi * Gi ;
-                lloyd += Lloyd_energy(p0, p1, p2) ;
-            }
 
-			// accumulate energy of mirror sites.
-			if(period()) {
-				std::set<Delaunay::Vertex_handle>& m = delaunay_->mirrors(v->index) ;
-				for(std::set<Delaunay::Vertex_handle>::iterator it=m.begin(); it!=m.end(); ++it) {
-					Polygon2* P = delaunay_->dual_convex_clip(*it) ;
-					vec2 offset = p0 - to_geex((*it)->point()) ;
-					for(unsigned int i=0; i<P->size(); ++i) {
-						const vec2& p1 = (*P)[i].vertex[0] + offset ;
-						const vec2& p2 = (*P)[i].vertex[1] + offset ;
-						double Vi = triangle_area(p0, p1, p2) ;
-						vec2 Gi = triangle_centroid(p0, p1, p2) ;
-						V += Vi ;
-						Vg += Vi * Gi ;
-						lloyd += Lloyd_energy(p0, p1, p2) ;
-					}
-				}
-			}
-        } else {
-            Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-            Delaunay::Face_circulator jt = it ; jt++ ;
-            do {
-                const vec2& p1 = it->dual ;
-                const vec2& p2 = jt->dual ;
-                double Vi = triangle_area(p0, p1, p2) ;
-                vec2 Gi = triangle_centroid(p0, p1, p2) ;
-                V += Vi ;
-                Vg += Vi * Gi ;
-                lloyd += Lloyd_energy(p0, p1, p2) ;
-                it++ ; jt++ ;
-            } while(it != delaunay_->incident_faces(v)) ;
-        }
-        f = lloyd ;
-		//if(v->locked) {
-		//	grad_f = vec2(0.0, 0.0) ;
-		//	return true ; 
-		//}
-        if(!delaunay_->in_boundary(to_geex(v->point()))) {
-            result = false ;
-        }
-        grad_f = 2.0 * (V * p0 - Vg) ; 
-		area = V ;
-        return result ;
     }
 
     void DelaunayCVT::set_anisotropy(const vec2& X, const vec2& Y) {
-        double a00 = X.x ; double a01 = Y.x ;
-        double a10 = X.y ; double a11 = Y.y ;
-        double d = a00 * a11 - a10 * a01 ;
 
-        double m00 =  a11/d ; double m01 = -a01/d ;
-        double m10 = -a10/d ; double m11 =  a00/d ;
-
-        cur_func_->add_p(m00) ;
-        cur_func_->add_p(m01) ;
-        cur_func_->add_p(m10) ;
-        cur_func_->add_p(m11) ;
     }
 
    
     void DelaunayCVT::query_anisotropy(const vec2& P, vec2& U, vec2& V) {
 
-
-        switch(aniso_mode_) {
-        case CONSTANT: {
-            U = vec2(1.0, 0.0) ;
-            V = vec2(0.0, 1.0) ;
-
-            switch(int(X_scale_)) {
-            case -2: U /= 2.0 ; break ;
-            case -1: U /= ::sqrt(2.0) ; break ;
-            case  0: break ;
-            case  1: U *= ::sqrt(2.0) ; break ;
-            case  2: U *= 2.0 ; break ;
-            }
-            
-            switch(int(Y_scale_)) {
-            case -2: V /= 2.0 ; break ;
-            case -1: V /= ::sqrt(2.0) ; break ;
-            case  0: break ;
-            case  1: V *= ::sqrt(2.0) ; break ;
-            case  2: V *= 2.0 ; break ;
-            }
-        } break ;
-
-        case R_INV: {
-            double cx = 0.5 * (delaunay_->x_min_ + delaunay_->x_max_) ;
-            double cy = 0.5 * (delaunay_->y_min_ + delaunay_->y_max_) ;
-            
-            double dx = delaunay_->x_max_ + delaunay_->x_min_ ;
-            double dy = delaunay_->y_max_ + delaunay_->y_min_ ;
-            double bbox_r = ::sqrt(dx * dx + dy * dy) ;
-            double min_r = 0.1 * bbox_r ;
-            
-            vec2 R = P - vec2(cx, cy) ;
-            double r = R.length() ;
-//            r = gx_max(r, bbox_r) ;        
-            
-            vec2 X = R ; X = normalize(X) ;
-            vec2 Y(-X.y, X.x) ;
-            
-
-            switch(int(X_scale_)) {
-            case -2: X /= r ; break ;
-            case -1: X /= ::sqrt(r) ; break ;
-            case  0: break ;
-            case  1: X *= ::sqrt(r) ; break ;
-            case  2: X *= r ; break ;
-            }
-            
-            switch(int(Y_scale_)) {
-            case -2: Y /= r ; break ;
-            case -1: Y /= ::sqrt(r) ; break ;
-            case  0: break ;
-            case  1: Y *= ::sqrt(r) ; break ;
-            case  2: Y *= r ; break ;
-            }
-            
-            U = X ;
-            V = Y ;
-        } break ;
-
-        case BORDER: {
-            double theta = default_theta(P) ;
-            vec2 X(cos(theta), sin(theta)) ;
-            vec2 Y(-X.y, X.x) ;
-            U = X ;
-            V = Y ;
-        } break ;
-        }
-
     }
    
     void DelaunayCVT::set_anisotropy(const vec2& P) {
-        vec2 U,V ;
-        query_anisotropy(P,U,V) ;
-        set_anisotropy(U,V) ;
+
     }
 
     void DelaunayCVT::set_anisotropy(Delaunay::Vertex_handle V) {
-        if(!use_theta_) {
-            set_anisotropy(to_geex(V->point())) ;
-        }
+
     }
 
     void DelaunayCVT::get_PQR(PolygonVertex& V, int center_index) {
 
-        int nb_P = get_vertex_config(V) ;
-        int nb_Q = 2 - nb_P ;
-
-        int P[2] ;
-        int Q[2] ;
-
-        if(nb_Q == 2) {
-            new_R(V) ;
-        } else {
-            {
-                std::set<int>::iterator it = V.bisectors.begin() ;
-                for(unsigned int i=0; i<nb_P; i++) {
-                    P[i] = *it ;
-                    it++ ;
-                }
-            }
-            {
-                std::set<int>::iterator it = V.boundary_edges.begin() ;
-                for(unsigned int i=0; i<nb_Q; i++) {
-                    Q[i] = *it ;
-                    it++ ;
-                }
-            }
-            
-            new_P(delaunay_->all_vertices_[center_index]) ;
-            for(unsigned int i=0; i<nb_P; i++) {
-                new_P(delaunay_->all_vertices_[P[i]]) ;
-            }
-            for(unsigned int i=0; i<nb_Q; i++) {
-                new_Q(delaunay_->boundary_[Q[i]].line()) ;
-            }
-        }
     }
 
     double DelaunayCVT::lloyd_energy() {
         double result = 0.0 ;
-        for(unsigned int i=0; i<delaunay_->all_vertices_.size(); i++) {
-            Delaunay::Vertex_handle v = delaunay_->all_vertices_[i] ;
-            vec2 g ; double f, a ;
-//			if(period()&&!delaunay_->is_primary(v))
-//				continue ;
-            get_fgv(v, f, g, a) ;
-            result += f ;
-  //          v->energy = f ;
-			v->regularity = 0.5*f/(a*a*12.0) ;
-        }
+
         return result ;
     }
     
@@ -951,217 +443,36 @@ namespace Geex {
 namespace Geex {
 
     void DelaunayCVT::funcgrad(const double* x, double& f, double* g, bool& valid) {
-        if(symbolic_) {
-            funcgrad_symbolic(x, f, g, valid) ;
-        } else {
-            funcgrad_simple(x, f, g, valid) ;
-        }
+
     }
     
     void DelaunayCVT::funcgrad_simple(const double* x, double& f, double* g, bool& valid) {
-        valid = true ;
-        set_vertices(x) ;
-        std::vector<Geex::Delaunay::Vertex_handle>& all_vertices = delaunay_->all_vertices_ ;
-        int cur_i = 0 ;
-        f = 0.0 ;
-        double gnorm2 = 0.0 ;
-        for(unsigned int i=0; i<all_vertices.size(); i++) {
-            double cur_f = 0.0 ; //initialisation to please MSVC...
-			double cur_a = 0.0 ;
-            Geex::vec2 cur_grad ;
-			if(period()&&!delaunay_->is_primary(all_vertices[i]))
-				continue ;
-            //valid = valid && get_fg(all_vertices[i], cur_f, cur_grad) ;
-			valid = valid && get_fgv(all_vertices[i], cur_f, cur_grad, cur_a) ;
-            f += cur_f ;
-            g[cur_i  ] = cur_grad.x ;
-            g[cur_i+1] = cur_grad.y ;
-            gnorm2 += cur_grad.length2() ;
-  //          all_vertices[i]->energy = cur_f ;
-			all_vertices[i]->regularity = 0.5*cur_f/(cur_a*cur_a*12.0) ;
-            cur_i += 2 ;
-            if(use_theta_) { cur_i += 2 ; }
-        }
-        if(lbfgs_redraw) {
-            std::cout << "Lloyd energy = " << f << std::endl ;
-            std::cout << "||g|| = " << ::sqrt(gnorm2) << std::endl ;
-        }
+
     }
 
     double DelaunayCVT::default_theta(const vec2& P) {
-        int edge_index = delaunay_->segments().locate(P) ;
-        gx_assert(edge_index >= 0 && edge_index < delaunay_->boundary_.size()) ;
-        vec2 V = delaunay_->boundary_[edge_index].vertex[1] - delaunay_->boundary_[edge_index].vertex[0] ;
         double result = 0.0 ;
-        if(::fabs(V.x) < 1e-20) {
-            result = M_PI / 2.0 ;
-        } else {
-            result = atan(V.y / V.x) ;
-        }
+
         return result ;
     }
 
     double DelaunayCVT::default_theta(Delaunay::Vertex_handle v) {
-        return default_theta(to_geex(v->point())) ;
-/*
-        gx_assert(v->dual_intersects_boundary) ;
-        Polygon2* P = delaunay_->dual_convex_clip(v, false) ;
-        vec2 V(0.0, 0.0) ;
-        for(unsigned int i=0; i<P->size(); i++) {
-            const PolygonEdge& e = (*P)[i] ;
-            V += e.vertex[1] - e.vertex[0] ;
-        }
-*/
+        return 0;
     }
 
     double DelaunayCVT::default_rho(Delaunay::Vertex_handle v) {
 
         return 1.0 ; 
 
-//        gx_assert(v->dual_intersects_boundary) ;        
-
-        double cx = 0.5 * (delaunay_->x_min_ + delaunay_->x_max_) ;
-        double cy = 0.5 * (delaunay_->y_min_ + delaunay_->y_max_) ;
-        vec2 C(cx, cy) ;
-
-        vec2 P = to_geex(v->point()) ;
-        vec2 X = P - vec2(cx, cy) ;
-        double R = X.length() ;
-        return R ;
     }
 
     void DelaunayCVT::funcgrad_symbolic(const double* x, double& f, double* g, bool& valid) {
-        valid = true ;
-        set_vertices(x) ;
-        std::vector<Delaunay::Vertex_handle>& all_vertices = delaunay_->all_vertices_ ;
-        f = 0.0 ;
-        int N = use_theta_ ? delaunay_->nb_vertices() * 4 : delaunay_->nb_vertices() * 2 ;
-		if(period()) {
-			N = use_theta_ ? delaunay_->nb_primary() * 4 : delaunay_->nb_primary() * 2 ;
-		}
         
-        for(int i=0; i<N; i++) {
-            g[i] = 0.0 ;
-        }
-        for(unsigned int i=0; i<all_vertices.size(); i++) {
-            Delaunay::Vertex_handle v = all_vertices[i] ;
-            double D = 0.0 ;
-			
-			// periodic impl.
-			if(period()&&!delaunay_->is_primary(all_vertices[i]))
-				continue ;
-
-            if(!delaunay_->in_boundary(to_geex(v->point()))) {
-                valid = false ;
-            }
-//            v->energy = 0.0 ;
-            if(delaunay_->dual_cell_intersects_boundary(v) && !period()) { 
-//			if(delaunay_->is_boundary_cell(v) && !period()) {                
-				Polygon2* P = delaunay_->dual_convex_clip(v) ;
-                for(unsigned int j1 = 0; j1 < P->size(); j1++) {
-                    int c1 = get_vertex_config((*P)[j1].vertex[0]) ;
-                    int c2 = get_vertex_config((*P)[j1].vertex[1]) ;
-
-                    begin_func(c1, c2) ;
-                    set_anisotropy(v) ;
-                    new_P(v) ;
-                    get_PQR((*P)[j1].vertex[0], v->index) ;
-                    get_PQR((*P)[j1].vertex[1], v->index) ;
-                    if(use_theta_) { 
- //                       cur_func_->add_x(v->theta) ; 
- //                       cur_func_->add_x(v->rho) ; 
-                    }
-                    end_func() ;
-                    add_to_fg(f, g) ;
-  //                  v->energy += cur_func_->f(0) ;
-                    D += triangle_area(to_geex(v->point()), (*P)[j1].vertex[0], (*P)[j1].vertex[1]) ;
-                }
-            } else {
-                Delaunay::Face_circulator it = delaunay_->incident_faces(v) ;
-                Delaunay::Face_circulator jt = delaunay_->incident_faces(v) ;
-                jt++ ;
-                do {
-                    Delaunay::Vertex_handle v2 = 0 ;
-                    Delaunay::Vertex_handle v3 = 0 ;
-                    Delaunay::Vertex_handle v4 = 0 ;
-
-                    for(unsigned int j=0; j<3; j++) {
-                        Delaunay::Vertex_handle w1 = it->vertex(j) ;
-                        if(w1 != v) {
-                            if(jt->has_vertex(w1)) { 
-                                v2 = w1 ; 
-                            } else {
-                                v3 = w1 ; 
-                            }
-                        }
-                        Delaunay::Vertex_handle w2 = jt->vertex(j) ;
-                        if(w2 != v && !it->has_vertex(w2)) {
-                            v4 = w2 ;
-                        }
-                    }
-
-                    gx_assert(v2 != 0) ; 
-                    gx_assert(v3 != 0) ; 
-                    gx_assert(v4 != 0) ; 
-                    
-                    begin_func_regular() ;
-                    set_anisotropy(v) ;
-                    new_P(v) ;
-                    new_P(v2) ;
-                    new_P(v3) ;
-                    new_P(v4) ;
-                    if(use_theta_) { 
-                   //     cur_func_->add_x(v->theta) ; 
-                  //      cur_func_->add_x(v->rho) ; 
-                    }
-                    end_func() ;
-                    add_to_fg(f, g) ;
-               //     v->energy += cur_func_->f(0) ;
-                    D += triangle_area(to_geex(v->point()), it->dual, jt->dual) ;
-                    it++ ;
-                    jt++ ;
-                } while(it != delaunay_->incident_faces(v)) ;
-            }
-//            v->energy /= D ;
-        }
-        if(lbfgs_redraw) {
-            std::cout << "Lloyd energy = " << f << std::endl ;
-            double gnorm2 = 0.0 ;
-            for(int i=0; i<N; i++) {
-                gnorm2 += g[i]*g[i] ;
-            }
-            std::cout << "||g|| = " << ::sqrt(gnorm2) << std::endl ;
-        }
     }
     
     
     void DelaunayCVT::add_to_fg(double& f, double* g) {
-        f += cur_func_->f(0) ;
-        int nb_params = cur_P_ ;
-        for(int i1 = 0; i1<nb_params; i1++) {
- //           if(!delaunay_->all_vertices_[iP[i1]]->locked) {
-                for(int i2=0; i2<2; i2++) {
-                    int i = i1*2 + i2 ;
-                    int gi = use_theta_ ? iP[i1]*4 + i2 : iP[i1]*2 + i2 ;
-                    g[gi] += cur_func_->g(0,i) ;
-                }
- //           }
-        }
-        if(use_theta_) {
-            double dfdtheta = cur_func_->g(0,cur_func_->nb_x() - 2) ;
-            double dfdrho   = cur_func_->g(0,cur_func_->nb_x() - 1) ;
-
-            Delaunay::Vertex_handle v = delaunay_->all_vertices_[iP[0]] ;
-
-            if(true) {
-                if(true || !v->dual_intersects_boundary) {
-                    g[iP[0]*4+2] += dfdtheta ;
-                }
-                if(false && !v->dual_intersects_boundary) {
-                    g[iP[0]*4+3] += dfdrho ;
-                }
-            }
-        }
+        
     }
 
 }
@@ -1169,16 +480,10 @@ namespace Geex {
 //------------ Optimizer interface -------------
 
 void funcgrad_cvt2d(int n, double* x, double& f, double* g) {
-    bool valid ;
-    Geex::DelaunayCVT* cvt = Geex::DelaunayCVT::instance() ;
-	
-	cvt->funcgrad(x,f,g, valid) ;
-    if(!valid) { f += 30.0 ; }
+
 }
 
 void newiteration_cvt2d(int n, const double* x, double f, const double* g, double gnorm) {
-    if(lbfgs_redraw) {
-        glut_viewer_redraw() ;
-    }
+
 }
 
