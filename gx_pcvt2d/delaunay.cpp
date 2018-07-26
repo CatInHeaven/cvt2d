@@ -94,7 +94,9 @@ namespace Geex {
 		//Covering_sheets cs = baseclass::number_of_sheets();
 		//std::cerr << "Current covering: " << cs[0] << ' ' << cs[1] << std::endl;  //result is (1,1)
         //load_boundary(FileSystem::get_project_root() + "/gx_pcvt2d/square.line") ;
-		set_domain(Iso_rectangle(0, 0, 1, 1));
+		x_min_ = 0; x_max_ = 1;
+		y_min_ = 0; y_max_ = 1;
+		set_domain(Iso_rectangle(x_min_, y_min_, x_max_, y_max_));
 		opened_ = false ;
         insert_boundary_ = false ;
 		perturb_ = 0 ;
@@ -147,29 +149,7 @@ namespace Geex {
     }
 
 	void Delaunay::load_boundary(const std::string& filename) {
-		cached_bbox_ = false ;
-		boundary_.clear() ;
-		boundary_convex_.clear() ;
-		boundary_.load(filename) ;
-//        boundary_.normalize() ;
-		if(!non_convex_mode_) {
-			for(unsigned int i=0; i<boundary_.size(); i++) {
-				boundary_convex_.push_back(boundary_[i].line()) ;
-			}
-		}
 
-		double x_min, y_min, z_min ;
-		double x_max, y_max, z_max ;
-		get_bbox(x_min, y_min, z_min, x_max, y_max, z_max) ;
-		double dx = x_max - x_min;
-		double dy = y_max - y_min;
-		double diag = sqrt(dx*dx + dy*dy) ;
-
-		segments_.clear() ;
-		for(unsigned int i=0; i<boundary_.size(); i++) {
-			segments_.set_domain(Iso_rectangle(1, 1, 2.1, 2.1));
-			segments_.insert(int(i), boundary_[i].vertex[0], boundary_[i].vertex[1], 0.01 * diag) ;
-		}
 	}
 
 
@@ -216,28 +196,51 @@ namespace Geex {
 
 	void Delaunay::compute_inner_voronoi(Vertex_handle vh, std::vector<vec2>& poly) {
 		DelaunayBase dt ;		
-		
+		vec2 pp = to_geex(point(periodic_point(vh)));
+		//std::cout << "p0: " <<pp[0]<<","<<pp[1] << std::endl ;
 		Delaunay::Face_circulator dfcir = incident_faces(vh) ;
 		do {
-			vec2 p = dual(dfcir) ;
+			vec2 p = dfcir->dual ;
+			//std::cout << "p10: " <<p[0]<<","<<p[1] << std::endl ;
+			if (p[0]<0) 
+				while(p[0]< 0)
+					p[0] += 1;
+			if (p[0]>=1) 
+				while(p[0]>=1)
+					p[0] -= 1;
+			if (p[1]<0) 
+				while(p[1]< 0)
+					p[1] += 1;
+			if (p[1]>=1) 
+				while(p[1]>=1)
+					p[1] -= 1;
+			//std::cout << "p1: " <<p[0]<<","<<p[1] << std::endl ;
 			dt.insert(to_cgal(p)) ;
 			dfcir++ ;
 		} while(dfcir!=incident_faces(vh)) ;
 
 		Delaunay::Vertex_circulator vcir = adjacent_vertices(vh) ;
 		do {
-			dt.insert(vcir->point()) ;
+			vec2 p = to_geex(point(periodic_point(vcir)));
+			//std::cout << "p20: " <<p[0]<<","<<p[1] << std::endl ;
+			if (p[0]>=1) 
+				while(p[0]>=1)
+					p[0] -= 1;
+			if (p[1]>=1) 
+				while(p[1]>=1)
+					p[1] -= 1;
+			//std::cout << "p2: " <<p[0]<<","<<p[1] << std::endl ;
+			dt.insert(to_cgal(p)) ;
 			vcir++ ;
 		} while(vcir!=adjacent_vertices(vh)) ;
 
-		Vertex_handle vc = dt.insert(vh->point()) ;
+		Vertex_handle vc = dt.insert(point(periodic_point(vh))) ;
+		
 
 		Delaunay::Face_circulator fcir = incident_faces(vc) ;
 		do { 
-			if(!dt.is_infinite(fcir)) {
-				vec2 dc = to_geex(dt.dual(fcir)) ;
-				poly.push_back(dc) ;
-			}
+			vec2 dc = to_geex(dt.dual(fcir)) ;
+			poly.push_back(dc) ;
 			fcir++ ;
 
 		} while(fcir!=incident_faces(vc)) ;
@@ -1183,11 +1186,11 @@ namespace Geex {
     void Delaunay::begin_insert() { opened_ = true ; }
 
     void Delaunay::end_insert(bool redraw) {
+		convert_to_9_sheeted_covering() ;
         all_vertices_.clear() ;
         for(Vertex_iterator it = vertices_begin() ; it != vertices_end() ; it++) {
             it->dual_intersects_boundary = false ;
 			it->dual_infinite = false ;
-            it->index = -1 ;
 			it->domain = -1 ;
         }
 
@@ -1207,6 +1210,8 @@ namespace Geex {
         all_vertices_.clear() ;
         int cur_index = 0 ;
         for(Vertex_iterator it = vertices_begin(); it != vertices_end() ; it++) {
+			if(!is_primary(it))
+					continue ;
             all_vertices_.push_back(it) ;
             //it->index = cur_index ;
 			//it->domain = 0 ; 
@@ -1267,6 +1272,7 @@ namespace Geex {
         while(!in_boundary(p)) {
             nb_tries++ ;
             if(!non_convex_mode_ && nb_tries > 1000) {
+				std::cerr << nb_tries << std::endl;
                 std::cerr << "Could not insert point, probably missing +non_convex flag" << std::endl ;
                 exit(-1) ;
             }
@@ -1346,7 +1352,6 @@ namespace Geex {
         // //        v->locked = true ;
         //     }
         // }
-		convert_to_9_sheeted_covering();
         end_insert(false) ;
     }
 

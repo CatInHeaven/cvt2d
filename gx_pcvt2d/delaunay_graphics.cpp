@@ -132,8 +132,8 @@ namespace Geex {
 		show_min_max_ = GL_FALSE ;
 		show_inner_voronoi_ = GL_FALSE ;
 		show_regularity_ = GL_FALSE ;
-		show_edge_ = GL_TRUE ;
-		show_dual_point_ = GL_TRUE ;
+		show_edge_ = GL_FALSE ;
+		show_dual_point_ = GL_FALSE ;
     }
     
     void DelaunayGraphics::draw() {
@@ -263,30 +263,21 @@ namespace Geex {
 //        begin_spheres() ;
 		if(!vertices_color_) {
 			FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
-				//if(!show_copies_ && !delaunay_->is_primary(v))
-				//	continue ;
-/*				if(v->locked) {
-					glColor3f(1.0,0.0,0.0) ;
-				} else*/ 
-				// if(!delaunay_->is_primary(v))
-				// 	continue ;
+				if(!delaunay_->is_primary(v))
+					continue ;
 				glColor3f(0.0,0.0,0.0) ;
 				Point p = delaunay_->point(delaunay_->periodic_point(v));
-				glVertex2f(p.x(), p.y()) ;
+				glVertex2f(p.x()+1, p.y()+1) ;
 			}
 		}
 		else {
 			FOR_EACH_VERTEX_DT(Delaunay, delaunay_, v) {
-				//if(!show_copies_ && !delaunay_->is_primary(v))
-				//	continue ;
-				// if(!delaunay_->is_primary(v))
-				// 	continue ;
+				if(!delaunay_->is_primary(v))
+					continue ;
 				int deg = delaunay_->degree(v) ;
 				gl_vertex_color(deg) ;
 				Point p = delaunay_->point(delaunay_->periodic_point(v));
-				//std::cerr << pp.x() << std::endl ;
-				glVertex2f(p.x(), p.y()) ;
-				//std::cerr << "p = (" <<p.x() << "," << p.y()<< ")" << std::endl ;
+				glVertex2f(p.x()+1, p.y()+1) ;
 			}
 		}
 //        end_spheres() ;
@@ -297,8 +288,8 @@ namespace Geex {
                 double R = 0.5 * radius(v) ;
                 vec2 p = to_geex(v->point()) ;
                 
-				// if(!show_copies_ && !delaunay_->is_primary(v))
-				// 	continue ;
+				if(!show_copies_ && !delaunay_->is_primary(v))
+					continue ;
 
                 vec2 U,V ;
                 CVT_->query_anisotropy(p,U,V) ;
@@ -336,7 +327,7 @@ namespace Geex {
 			CVT_->get_cell_primary_centroid(v, g, V) ;
 				//CVT_->get_cell_centroid(v, g, V) ;
             vec2 p = g ;
-            glVertex2f(p.x, p.y) ;
+            glVertex2f(p.x+1, p.y+1) ;
         }
         glEnd() ;
 //        end_spheres() ;

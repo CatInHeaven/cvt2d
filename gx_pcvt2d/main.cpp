@@ -67,7 +67,7 @@ namespace Geex {
             }
             nb_points_ = 100 ;
             get_arg("nb_pts", nb_points_) ;
-            nb_iter_ = 1 ;
+            nb_iter_ = 50 ;
             get_arg("nb_iter", nb_iter_) ;            
             non_convex_ = GL_FALSE ;
             get_arg("non_convex", non_convex_) ;
@@ -91,7 +91,7 @@ namespace Geex {
             if(boundary_filename_.length() > 0) {
                 cvt()->load_boundary(boundary_filename_) ;
             }
-			cvt()->insert_boundary() = insert_boundary_ ;
+			//cvt()->insert_boundary() = insert_boundary_ ;
             cvt()->insert_random_vertices(nb_points_) ;
 			//insert_copies() ;
         }
@@ -229,7 +229,7 @@ namespace Geex {
             TwEnumVal cvt_def[] = { {LLOYD, "Lloyd"}, {NEWTON, "Newton"}, {THETA, "Theta"} } ;
             TwType tw_cvt = TwDefineEnum("CVTType", cvt_def, 3) ;
             TwAddVarRW(numerics_bar, "Mode", tw_cvt, &cvt()->mode(), "") ;
-            TwAddVarRW(numerics_bar, "Bndry.", TW_TYPE_BOOL8, &cvt()->insert_boundary(), "") ;            
+            //TwAddVarRW(numerics_bar, "Bndry.", TW_TYPE_BOOL8, &cvt()->insert_boundary(), "") ;            
             TwAddVarRW(numerics_bar, "Edit", TW_TYPE_BOOL8, &edit_, "") ;    
 		
             viewer_properties_->add_separator("Graphics") ;
@@ -250,7 +250,7 @@ namespace Geex {
             viewer_properties_->add_slider("X scale", cvt()->Xscale(), -2.0, 2.0)->set_integer(GL_TRUE) ;
             viewer_properties_->add_slider("Y scale", cvt()->Yscale(), -2.0, 2.0)->set_integer(GL_TRUE) ;
             viewer_properties_->add_enum("Mode", cvt()->mode(), GlutViewerGUI::LabelList() | CVTModeNames) ;
-            viewer_properties_->add_toggle("Bndry.", cvt()->insert_boundary()) ;
+            //viewer_properties_->add_toggle("Bndry.", cvt()->insert_boundary()) ;
             viewer_properties_->add_toggle("Edit", edit_) ;
 
             toggle_skybox_CB() ;

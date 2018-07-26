@@ -87,10 +87,10 @@ class GridCell ;
         ) ;
 
         bool in_boundary(const vec2& p) { 
-            return non_convex_mode_ ? boundary_.contains(p) : boundary_convex_.contains(p) ; 
+            return p[0]>=x_min_&&p[0]<x_max_&&p[1]>=y_min_&&p[1]<y_max_ ; 
         }
 
-        GLboolean& insert_boundary() { return insert_boundary_ ; }
+        //GLboolean& insert_boundary() { return insert_boundary_ ; }
 //		GLboolean& insert_full_copy() { return insert_full_copy_ ; }
 //		GLboolean& period() { return period_ ; }
 
@@ -179,7 +179,7 @@ class GridCell ;
 		void insert_copies_ring(bool redraw=false) ;
 		void insert_copies_poisson(double radius, bool redraw=false) ;
 
-		bool is_primary(Vertex_handle v) { return periodic_point(v).second.x()==1&&periodic_point(v).second.y()==1 ; }
+		bool is_primary(Vertex_handle v) { return periodic_point(v).second.is_null() ; }
 		bool neighbor_to_primary(Vertex_handle v) ;
 		bool is_full_hex() ; // check pvd configuration
 		int  nb_primary() ;

@@ -65,11 +65,10 @@ namespace Geex {
         enum { MAX_P = 9 } ;
         DelaunayCVT(Delaunay* delaunay) ;
         ~DelaunayCVT() ;
-        void lloyd(int nb_iter = 50, bool redraw = true) ;
+        void lloyd(int nb_iter = 1, bool redraw = true) ;
         void newton_lloyd(int nb_iter = 1, bool redraw = true) ;
         static DelaunayCVT* instance() { return instance_ ; }
         std::vector<Delaunay::Vertex_handle>& all_vertices() { return delaunay_->all_vertices_ ; }
-
 		void lloyd_fpo(int nb_iter = 1, bool redraw = true) ;
 
         double default_theta(const vec2& V) ;
@@ -81,6 +80,7 @@ namespace Geex {
         void get_cell_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) ;
 		void get_boundary_cell_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) ;
 		void get_primary_position(vec2& g) ;
+        void get_local_position(vec2& g) ;
 		void get_cell_primary_centroid(Delaunay::Vertex_handle v, vec2& g, double& V) ;
         void get_cell_quasi_incenter(Delaunay::Vertex_handle v, vec2& g);
         bool get_fg(Delaunay::Vertex_handle v, double& f, vec2& grad_f) ;
